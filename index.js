@@ -13,6 +13,41 @@ var con = mysql.createConnection({
 });
 
 
+var config = {
+  host: "localhost",
+  user: "root",
+  password: "256256ZZzz",
+  database: "mydb"
+};
+
+
+class Database {
+  constructor( config ) {
+      this.connection = mysql.createConnection( config );
+  }
+  query( sql, args ) {
+      return new Promise( ( resolve, reject ) => {
+          this.connection.query( sql, args, ( err, rows ) => {
+              if ( err )
+                  return reject( err );
+              resolve( rows );
+          } );
+      } );
+  }
+  close() {
+      return new Promise( ( resolve, reject ) => {
+          this.connection.end( err => {
+              if ( err )
+                  return reject( err );
+              resolve();
+          } );
+      } );
+  }
+}
+
+let database = new Database(config);
+
+
 var urlencodedParser = bodyParser.urlencoded({ extended: false })
 
 app.use(express.static('public'));
@@ -22,23 +57,31 @@ app.get('/', function (req, res) {
 
 
 
-app.post('/process_post', urlencodedParser, function (req, res) {
-   // Prepare output in JSON format
-   
-   console.log('req.body.name = ' + req.body.name);
-   name = req.body.name;
-   address = req.body.address;
-   console.log('-------------------------------' + name + '///' + address);
-   addCustomer(name, address);
-   response = {
-      name:req.body.name,
-      address:req.body.address
-   };
-   console.log(response);
+app.post('/customer_send', urlencodedParser, function (req, res) {
+  // Prepare output in JSON format
+  
+  console.log('req.body.name = ' + req.body.name);
+  name = req.body.name;
+  address = req.body.address;
+  addCustomer(name, address);
+  response = {
+     name:req.body.name,
+     address:req.body.address
+  };
+  console.log(response);
+  res.end(); //JSON.stringify(response)
+})
 
 
+app.post('/customers_request', function (req, res) {
 
-   res.end(JSON.stringify(response));
+  console.log('---------------CLICKED!----------------');
+  // console.log(req.headers);
+  // let customers = getCustomers();
+  // console.log('CUSTOMERS RCIEVED:   ' + customers);
+  // res.send('just text');
+  getCustomers(res);
+
 })
 
 
@@ -69,6 +112,28 @@ function addCustomer (name, address) {
   });
 }
 
+
+function getCustomers (res) {
+
+  database.query( 'SELECT * FROM customers' )
+  .then( result => {
+    console.log('PROMISE RESULT   ' + result);
+    console.log('nodemon!');
+    res.send(result);
+    return database.close(); 
+  }, err => {
+    return database.close().then( () => { throw err; } )
+  } ).catch( err => {
+    // handle the error
+    console.log(err);
+  } );
+  
+
+  // console.log('-----CUST------' + cust);
+
+  // return cust;
+
+}
 
 // http.createServer(function (req, res) {
 //   fs.readFile('main.html', function(err, data) {
