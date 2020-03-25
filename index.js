@@ -5,14 +5,6 @@ var express = require('express');
 var app = express();
 var bodyParser = require('body-parser');
 
-var con = mysql.createConnection({
-  host: "localhost",
-  user: "root",
-  password: "256256ZZzz",
-  database: "mydb"
-});
-
-
 var config = {
   host: "localhost",
   user: "root",
@@ -45,8 +37,6 @@ class Database {
   }
 }
 
-let database = new Database(config);
-
 
 var urlencodedParser = bodyParser.urlencoded({ extended: false })
 
@@ -60,9 +50,10 @@ app.get('/', function (req, res) {
 app.post('/customer_send', urlencodedParser, function (req, res) {
   // Prepare output in JSON format
   
-  console.log('req.body.name = ' + req.body.name);
   name = req.body.name;
   address = req.body.address;
+  console.log('req.body.name = ' + name);
+  console.log('req.body.address = ' + address);
   addCustomer(name, address);
   response = {
      name:req.body.name,
@@ -76,10 +67,6 @@ app.post('/customer_send', urlencodedParser, function (req, res) {
 app.post('/customers_request', function (req, res) {
 
   console.log('---------------CLICKED!----------------');
-  // console.log(req.headers);
-  // let customers = getCustomers();
-  // console.log('CUSTOMERS RCIEVED:   ' + customers);
-  // res.send('just text');
   getCustomers(res);
 
 })
@@ -97,6 +84,8 @@ var server = app.listen(3000, function () {
 
 function addCustomer (name, address) {
   
+  var con = mysql.createConnection(config);
+
   con.connect(function(err) {
     if (err) throw err;
     console.log("Connected!");
@@ -108,12 +97,17 @@ function addCustomer (name, address) {
     con.query(sql, [values], function (err, result) {
       if (err) throw err;
       console.log("1 record inserted");
+      con.end();
     });
   });
+
+
 }
 
 
 function getCustomers (res) {
+
+  let database = new Database(config);
 
   database.query( 'SELECT * FROM customers' )
   .then( result => {
@@ -159,3 +153,4 @@ function getCustomers (res) {
 
 
 // setTimeout(() => {process.exit();}, 1000)
+
