@@ -40,36 +40,75 @@ class Database {
 
 var urlencodedParser = bodyParser.urlencoded({ extended: false })
 
-app.use(express.static('public'));
+//app.use(express.static('public'));
+app.use("/public", express.static('./public/'));
+app.use(bodyParser.urlencoded({
+  extended: true
+}));
+app.use(express.json());
+
+
 app.get('/', function (req, res) {
    res.sendFile( __dirname + "\\" + "main.html" );
 })
 
 
-
-app.post('/customer_send', urlencodedParser, function (req, res) {
-  // Prepare output in JSON format
+//-------------- POST ADD CUSTOMER --------------
+app.post('/customer_add', urlencodedParser, function (req, res) {
   
-  name = req.body.name;
-  address = req.body.address;
+  console.log('!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!');
+  console.log(req);
+
+  let name = req.body.name;
+  let address = req.body.address;
   console.log('req.body.name = ' + name);
   console.log('req.body.address = ' + address);
   addCustomer(name, address);
-  response = {
-     name:req.body.name,
-     address:req.body.address
-  };
-  console.log(response);
-  res.end(); //JSON.stringify(response)
+  // response = {
+  //    name:req.body.name,
+  //    address:req.body.address
+  // };
+  // console.log(response);
+  res.send('lalala'); //JSON.stringify(response)
 })
+//-------------- POST ADD CUSTOMER (end) --------------
 
 
+
+//-------------- POST GET ALL CUSTOMERS REQUEST --------------
 app.post('/customers_request', function (req, res) {
 
   console.log('---------------CLICKED!----------------');
   getCustomers(res);
 
 })
+//-------------- POST GET ALL CUSTOMERS REQUEST (end) --------------
+
+
+//-------------- POST GET CUSTOMERS BY NAME REQUEST --------------
+app.post('/customers_find_by_name', function (req, res) {
+
+  console.log('--------------- GCBN CLICKED! ----------------');
+  let name = req.body.name;
+  console.log(name);
+  getCustomers(res, name);
+})
+//-------------- POST GET CUSTOMERS BY NAME REQUEST (end) --------------
+
+
+//-------------- POST GET CUSTOMERS BY ADDRESS REQUEST --------------
+app.post('/customers_find_by_address', function (req, res) {
+
+  console.log('--------------- GCBA CLICKED! ----------------');
+  let address = req.body.address;
+  console.log(address);
+  getCustomers(res, null, address);
+})
+//-------------- POST GET CUSTOMERS BY ADDRESS REQUEST (end) --------------
+
+
+
+
 
 
 var server = app.listen(3000, function () {
@@ -104,53 +143,75 @@ function addCustomer (name, address) {
 
 }
 
-
-function getCustomers (res) {
+//--------------  GET CUSTOMERS FUNCTION --------------
+/* Arguments:
+* res - response to AJAX POST
+* name - search by name
+* address - search by adress
+*/
+function getCustomers (res, name, address) {
 
   let database = new Database(config);
 
-  database.query( 'SELECT * FROM customers' )
-  .then( result => {
-    console.log('PROMISE RESULT   ' + result);
-    console.log('nodemon!');
-    res.send(result);
-    return database.close(); 
-  }, err => {
-    return database.close().then( () => { throw err; } )
-  } ).catch( err => {
-    // handle the error
-    console.log(err);
-  } );
+console.log('Address ' + address)
+
+  if ( !name && !address ) {
+    database.query( 'SELECT * FROM customers' )
+    .then( result => {
+      console.log('PROMISE RESULT   ' + result);
+      res.send(result);
+      return database.close(); 
+    }, err => {
+      return database.close().then( () => { throw err; } )
+    } ).catch( err => {
+      // handle the error
+      console.log(err);
+    } );
+  } else if ( name && !address ) {
+    console.log('name && !address');
+    console.log(name);
+    let nameSQL = '%' + name + '%';
+    let sql = "SELECT * FROM customers WHERE name LIKE ?";
+    database.query( sql , [nameSQL])
+    .then( result => {
+      console.log(result);
+      console.log('PROMISE RESULT   ' + result);
+      res.send(result);
+      return database.close(); 
+    }, err => {
+      return database.close().then( () => { throw err; } )
+    } ).catch( err => {
+      // handle the error
+      console.log(err);
+    } );
+  } else if ( !name && address ) {
+    console.log('name && !address');
+    console.log(address);
+    let addressSQL = '%' + address + '%';
+    let sql = "SELECT * FROM customers WHERE address LIKE ?";
+    database.query( sql , [addressSQL])
+    .then( result => {
+      console.log(result);
+      console.log('PROMISE RESULT   ' + result);
+      res.send(result);
+      return database.close(); 
+    }, err => {
+      return database.close().then( () => { throw err; } )
+    } ).catch( err => {
+      // handle the error
+      console.log(err);
+    } );
+  }
+
+
   
 
-  // console.log('-----CUST------' + cust);
-
-  // return cust;
 
 }
-
-// http.createServer(function (req, res) {
-//   fs.readFile('main.html', function(err, data) {
-//     res.writeHead(200, {'Content-Type': 'text/html'});
-//     res.write(data);
-//     res.end();
-//   });
+//--------------  GET CUSTOMERS FUNCTION (end) --------------
 
 
-  
-  
-  // con.connect(function(err) {
-  //   if (err) throw err;
-  //   con.query("SELECT * FROM customers", function (err, result, fields) {
-  //     if (err) throw err;
-  //     console.log(result);
-  //   });
-  // });
-  
 
 
-// }).listen(3000);   
 
-
-// setTimeout(() => {process.exit();}, 1000)
 

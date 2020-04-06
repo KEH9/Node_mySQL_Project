@@ -1,105 +1,29 @@
 <html>
   <body>
     <h1>Here will be my mySQL project</h1>
-    <form action = "http://127.0.0.1:3000/customer_send" method = "POST">
+    <form action = "http://127.0.0.1:3000/customer_add" method = "POST" id="newCustomerForm">
       Name: <input type = "text" name = "name"> <br>
       Address: <input type = "text" name = "address">
-      <input type = "submit" value = "Submit">
+      <input type = "submit" value = "add new customer" id="newCustomer">
    </form>
 
-   <button id="customersRequest">Get list of customers</button>
-   
-   
-   <input type="button" onclick="CreateTableFromJSON()" value="Create Table From JSON" />
-   <p id="showData">showData</p>
 
-  <script>
-    console.log('Client-side code running');
 
-    const button = document.getElementById('customersRequest');
-    button.addEventListener('click', function(e) {
-      console.log('button was clicked');
+   <form id="findCustomers">
+    Find customers by name: <input type="text" name="textFCBN" id="textFCBN">
+    <input type="button" value="find" id="buttonFCBN"> <br>
+    Find customers by address: <input type="text" name="textFCBA" id="textFCBA">
+    <input type="button" value="find" id="buttonFCBA">
+   </form>
+   <button id="customersRequest">Get full list of customers</button>
+   <br>
+   <p id="showData"></p>
 
-      fetch('/customers_request', {method: 'POST'})
-        .then(function(response) {
-          if(response.ok) {
-            console.log('Click was recorded');
-            response.json().then(function(text) {
-              console.log(text);
-              CreateTableFromJSON(text);
-            });
-          } else {
-            throw new Error('Request failed.');
-          }
-        })
-        .catch(function(error) {
-          console.log(error);
-        });
-    });
 
-    function CreateTableFromJSON(jsonData) {
-        // var jsonData = [
-        //     {
-        //         "Book ID": "1",
-        //         "Book Name": "Computer Architecture",
-        //         "Category": "Computers",
-        //         "Price": "125.60"
-        //     },
-        //     {
-        //         "Book ID": "2",
-        //         "Book Name": "Asp.Net 4 Blue Book",
-        //         "Category": "Programming",
-        //         "Price": "56.00"
-        //     },
-        //     {
-        //         "Book ID": "3",
-        //         "Book Name": "Popular Science",
-        //         "Category": "Science",
-        //         "Price": "210.40"
-        //     }
-        // ]
 
-        // EXTRACT VALUE FOR HTML HEADER. 
-        // ('Book ID', 'Book Name', 'Category' and 'Price')
-        var col = [];
-        for (var i = 0; i < jsonData.length; i++) {
-            for (var key in jsonData[i]) {
-                if (col.indexOf(key) === -1) {
-                    col.push(key);
-                }
-            }
-        }
+   <script src="public/frontend/js/jsonToTable.js"></script> 
+   <script src="public/frontend/js/main.js"></script> 
 
-        // CREATE DYNAMIC TABLE.
-        var table = document.createElement("table");
 
-        // CREATE HTML TABLE HEADER ROW USING THE EXTRACTED HEADERS ABOVE.
-
-        var tr = table.insertRow(-1);                   // TABLE ROW.
-
-        for (var i = 0; i < col.length; i++) {
-            var th = document.createElement("th");      // TABLE HEADER.
-            th.innerHTML = col[i];
-            tr.appendChild(th);
-        }
-
-        // ADD JSON DATA TO THE TABLE AS ROWS.
-        for (var i = 0; i < jsonData.length; i++) {
-
-            tr = table.insertRow(-1);
-
-            for (var j = 0; j < col.length; j++) {
-                var tabCell = tr.insertCell(-1);
-                tabCell.innerHTML = jsonData[i][col[j]];
-            }
-        }
-
-        // FINALLY ADD THE NEWLY CREATED TABLE WITH JSON DATA TO A CONTAINER.
-        var divContainer = document.getElementById("showData");
-        divContainer.innerHTML = "";
-        divContainer.appendChild(table);
-    }
-
-  </script>
   </body>
 </html> 
