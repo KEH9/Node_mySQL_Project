@@ -57,19 +57,29 @@ app.get('/', function (req, res) {
 app.post('/customer_add', urlencodedParser, function (req, res) {
   
   console.log('!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!');
-  console.log(req);
 
   let name = req.body.name;
   let address = req.body.address;
   console.log('req.body.name = ' + name);
   console.log('req.body.address = ' + address);
-  addCustomer(name, address);
-  // response = {
-  //    name:req.body.name,
-  //    address:req.body.address
-  // };
-  // console.log(response);
-  res.send('lalala'); //JSON.stringify(response)
+
+  console.log('name.length = ' + name.length);
+  console.log('address.length = ' + address.length);
+
+  if ( name.length <= 3 ) {
+    console.log('name length is too short!')
+    res.send('Name should to be more than 3 letters!');
+  } else if ( address.length <= 3 ) {
+    console.log('address length is too short!')
+    res.send('Address should to be more than 3 letters!');
+  } else if (!checkCustomerInBase()) {
+    console.log('customer is already in base!')
+    res.send('Customer is already in base!');
+  } else {
+    addCustomer(name, address);
+    res.send('New customer added!'); 
+  }
+
 })
 //-------------- POST ADD CUSTOMER (end) --------------
 
@@ -117,6 +127,12 @@ var server = app.listen(3000, function () {
    
    console.log("Example app listening at http://%s:%s", host, port)
 })
+
+
+
+function checkCustomerInBase (name, address) {
+  return true;
+}
 
 
 
@@ -202,11 +218,6 @@ console.log('Address ' + address)
       console.log(err);
     } );
   }
-
-
-  
-
-
 }
 //--------------  GET CUSTOMERS FUNCTION (end) --------------
 

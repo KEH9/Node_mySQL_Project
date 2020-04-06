@@ -24,6 +24,7 @@ document.getElementById('newCustomer').addEventListener("click", function(e){
         console.log('ADD Click was recorded');
         response.text().then(function(text) {
           console.log(text);
+          alert(text);
         });
       } else {
         throw new Error('Request failed.');
