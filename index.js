@@ -72,12 +72,8 @@ app.post('/customer_add', urlencodedParser, function (req, res) {
   } else if ( address.length <= 3 ) {
     console.log('address length is too short!')
     res.send('Address should to be more than 3 letters!');
-  } else if (!checkCustomerInBase()) {
-    console.log('customer is already in base!')
-    res.send('Customer is already in base!');
   } else {
-    addCustomer(name, address);
-    res.send('New customer added!'); 
+    checkCustomerInBase(res, name, address);
   }
 
 })
@@ -130,7 +126,35 @@ var server = app.listen(3000, function () {
 
 
 
-function checkCustomerInBase (name, address) {
+function checkCustomerInBase (res, name, address) {
+
+  let database = new Database(config);
+
+  console.log('--------------- checkCustomerInBase -------------------');
+  console.log('name = ' + name);
+  console.log('addres = ' + address);
+  let sql = "SELECT * FROM customers WHERE name = ? AND address = ?";
+  database.query( sql , [name, address])
+  .then( result => {
+    console.log('----------------------- CHECK RESULT ---------------------');
+    console.log(result);
+    let resultBoolean = ( result.length > 0 )
+    if (resultBoolean) {
+        console.log('customer is already in base!')
+        res.send('Customer is already in base!');
+      } else {
+        addCustomer(name, address);
+        res.send('New customer added!');     
+      }
+    return database.close(); 
+  }, err => {
+    return database.close().then( () => { throw err; } )
+  } ).catch( err => {
+    // handle the error
+    console.log(err);
+  } );
+
+
   return true;
 }
 
