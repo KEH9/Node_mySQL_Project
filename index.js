@@ -1,5 +1,6 @@
 var http = require('http');
 var fs = require('fs');
+var path = require('path');
 var mysql = require('mysql');
 var express = require('express');
 var app = express();
@@ -48,9 +49,12 @@ app.use(bodyParser.urlencoded({
 app.use(express.json());
 
 
+
+
 app.get('/', function (req, res) {
-   res.sendFile( __dirname + "\\" + "main.html" );
-})
+  res.sendFile('main.html', { root: path.join(__dirname) });
+  // res.sendFile( __dirname + "\\" + "main.html" );
+});
 
 
 //-------------- POST ADD CUSTOMER --------------
@@ -76,7 +80,7 @@ app.post('/customer_add', urlencodedParser, function (req, res) {
     checkCustomerInBase(res, name, address);
   }
 
-})
+});
 //-------------- POST ADD CUSTOMER (end) --------------
 
 
@@ -87,7 +91,7 @@ app.post('/customers_request', function (req, res) {
   console.log('---------------CLICKED!----------------');
   getCustomers(res);
 
-})
+});
 //-------------- POST GET ALL CUSTOMERS REQUEST (end) --------------
 
 
@@ -98,7 +102,7 @@ app.post('/customers_find_by_name', function (req, res) {
   let name = req.body.name;
   console.log(name);
   getCustomers(res, name);
-})
+});
 //-------------- POST GET CUSTOMERS BY NAME REQUEST (end) --------------
 
 
@@ -109,7 +113,7 @@ app.post('/customers_find_by_address', function (req, res) {
   let address = req.body.address;
   console.log(address);
   getCustomers(res, null, address);
-})
+});
 //-------------- POST GET CUSTOMERS BY ADDRESS REQUEST (end) --------------
 
 

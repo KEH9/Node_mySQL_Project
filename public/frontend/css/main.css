@@ -1,0 +1,24 @@
+.main {
+  margin-left: 5px;
+  border: 0;
+  width: 98%;
+  height: 33px;
+  background: linear-gradient(to bottom, #fff, #B0C17A);
+  background: -webkit-linear-gradient(top, #fff, #B0C17A);
+  border-radius: 0 20px 20px 0;
+  position: absolute;      
+  }
+
+  .sheet {
+  float: left;
+  padding-left: 20px;
+  padding-right: 20px;
+  font: 16px/33px Times, 'Times New Roman', Georgia, serif; 
+  border-right: 2px solid #fff;
+  box-shadow: 1px 0 0px 0 grey; 
+  border-radius: 0 15px 15px 0;
+  }  
+
+  .hidden {
+    display: none;
+  }

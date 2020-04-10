@@ -1,23 +1,87 @@
 <html>
+  <head>
+    <link rel="stylesheet" type="text/css" href="/public/frontend/css/main.css">        
+  </head>
+
   <body>
-    <h1>Here will be my mySQL project</h1>
-    <form action = "http://127.0.0.1:3000/customer_add" method = "POST" id="newCustomerForm">
-      Name: <input type = "text" name = "name"> <br>
-      Address: <input type = "text" name = "address">
-      <input type = "submit" value = "add new customer" id="newCustomer">
-   </form>
 
+    <div class="main">
+      <div class="sheet" id="customersButton">Customers</div>
+      <div class="sheet" id="goodsButton">Goods</div>
+      <div class="sheet" id="ordersButton">Orders</div>
+    </div>
+    
+    <br>
+    <br>
 
+    <div id="customersContainer">
+      <h1>Customers managing page</h1>
+      <form id="newCustomerForm">
+        Name: <input type = "text" name = "name"> <br>
+        Address: <input type = "text" name = "address">
+        <input type = "submit" value = "add new customer" id="newCustomer">
+      </form>
+  
+  
+  
+      <form id="findCustomers">
+        Find customers by name: <input type="text" name="textFCBN" id="textFCBN">
+        <input type="button" value="find" id="buttonFCBN"> <br>
+        Find customers by address: <input type="text" name="textFCBA" id="textFCBA">
+        <input type="button" value="find" id="buttonFCBA">
+      </form>
+      <button id="customersRequest">Get full list of customers</button>
+      <br>
+      <p id="showData"></p>
+  
+  
+      </div>
 
-   <form id="findCustomers">
-    Find customers by name: <input type="text" name="textFCBN" id="textFCBN">
-    <input type="button" value="find" id="buttonFCBN"> <br>
-    Find customers by address: <input type="text" name="textFCBA" id="textFCBA">
-    <input type="button" value="find" id="buttonFCBA">
-   </form>
-   <button id="customersRequest">Get full list of customers</button>
-   <br>
-   <p id="showData"></p>
+    <div id="goodsContainer" class="hidden">
+      <h1>Goods managing page</h1>
+      <form id="newCustomerForm">
+        Name: <input type = "text" name = "name"> <br>
+        Address: <input type = "text" name = "address">
+        <input type = "submit" value = "add new customer" id="newCustomer">
+      </form>
+  
+  
+  
+      <form id="findCustomers">
+        Find customers by name: <input type="text" name="textFCBN" id="textFCBN">
+        <input type="button" value="find" id="buttonFCBN"> <br>
+        Find customers by address: <input type="text" name="textFCBA" id="textFCBA">
+        <input type="button" value="find" id="buttonFCBA">
+      </form>
+      <button id="customersRequest">Get full list of customers</button>
+      <br>
+      <p id="showData"></p>
+  
+  
+      </div>
+
+    <div id="ordersContainer" class="hidden">
+      <h1>Orders managing page</h1>
+      <form id="newCustomerForm">
+        Name: <input type = "text" name = "name"> <br>
+        Address: <input type = "text" name = "address">
+        <input type = "submit" value = "add new customer" id="newCustomer">
+      </form>
+  
+  
+  
+      <form id="findCustomers">
+        Find customers by name: <input type="text" name="textFCBN" id="textFCBN">
+        <input type="button" value="find" id="buttonFCBN"> <br>
+        Find customers by address: <input type="text" name="textFCBA" id="textFCBA">
+        <input type="button" value="find" id="buttonFCBA">
+      </form>
+      <button id="customersRequest">Get full list of customers</button>
+      <br>
+      <p id="showData"></p>
+  
+  
+      </div>
 
 
 
