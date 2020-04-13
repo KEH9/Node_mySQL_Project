@@ -84,6 +84,32 @@ app.post('/customer_add', urlencodedParser, function (req, res) {
 //-------------- POST ADD CUSTOMER (end) --------------
 
 
+//-------------- POST ADD PRODUCT --------------
+app.post('/product_add', urlencodedParser, function (req, res) {
+  
+  console.log('!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!');
+
+  let product = req.body.product;
+  let price = req.body.price;
+  let amount = req.body.amount;
+
+  if ( product.length <= 3 ) {
+    console.log('Product name length is too short!')
+    res.send('Product name should to be more than 3 letters!');
+  } else if ( price <= 0 ) {
+    console.log('Price shoud to be positive!')
+    res.send('Price shoud to be positive!');
+  } else if ( amount <= 0 ) {
+    console.log('Amount shoud to be positive!')
+    res.send('Amount shoud to be positive!');
+  } else {
+    checkProductInBase(res, product, price, amount);
+  }
+
+});
+//-------------- POST ADD PRODUCT (end) --------------
+
+
 
 //-------------- POST GET ALL CUSTOMERS REQUEST --------------
 app.post('/customers_request', function (req, res) {
@@ -115,6 +141,19 @@ app.post('/customers_find_by_address', function (req, res) {
   getCustomers(res, null, address);
 });
 //-------------- POST GET CUSTOMERS BY ADDRESS REQUEST (end) --------------
+
+
+
+
+//-------------- POST GET ALL PRODUCTS REQUEST --------------
+app.post('/products_request', function (req, res) {
+
+  console.log('---------------CLICKED!----------------');
+  getProducts(res);
+
+});
+//-------------- POST GET ALL PRODUCTS REQUEST (end) --------------
+
 
 
 
@@ -165,6 +204,42 @@ function checkCustomerInBase (res, name, address) {
 
 
 
+function checkProductInBase (res, product, price, amount) {
+
+  let database = new Database(config);
+
+  console.log('--------------- checkProductInBase -------------------');
+  console.log('product = ' + product);
+  console.log('price = ' + price);
+  console.log('amount = ' + amount);
+  let sql = "SELECT * FROM goods WHERE product = ?";
+  database.query( sql , [product])
+  .then( result => {
+    console.log('----------------------- CHECK RESULT (PRODUCT) ---------------------');
+    console.log(result);
+    let resultBoolean = ( result.length > 0 )
+    if (resultBoolean) {
+        console.log('product is already in base!')
+        res.send('Product is already in base!');
+      } else {
+        addProduct(product, price, amount);
+        res.send('New product added!');     
+      }
+    return database.close(); 
+  }, err => {
+    return database.close().then( () => { throw err; } )
+  } ).catch( err => {
+    // handle the error
+    console.log(err);
+  } );
+
+
+  return true;
+}
+
+
+
+
 function addCustomer (name, address) {
   
   var con = mysql.createConnection(config);
@@ -186,6 +261,31 @@ function addCustomer (name, address) {
 
 
 }
+
+
+
+function addProduct (product, price, amount) {
+  
+  var con = mysql.createConnection(config);
+
+  con.connect(function(err) {
+    if (err) throw err;
+    console.log("Connected!");
+    var sql = "INSERT INTO goods (product, price, amount) VALUES ?";
+    
+    var values = [[product, price, amount]];
+    console.log('-------------------SQL' + sql);
+
+    con.query(sql, [values], function (err, result) {
+      if (err) throw err;
+      console.log("1 record inserted");
+      con.end();
+    });
+  });
+
+
+}
+
 
 //--------------  GET CUSTOMERS FUNCTION --------------
 /* Arguments:
@@ -234,6 +334,52 @@ console.log('Address ' + address)
     let addressSQL = '%' + address + '%';
     let sql = "SELECT * FROM customers WHERE address LIKE ?";
     database.query( sql , [addressSQL])
+    .then( result => {
+      console.log(result);
+      console.log('PROMISE RESULT   ' + result);
+      res.send(result);
+      return database.close(); 
+    }, err => {
+      return database.close().then( () => { throw err; } )
+    } ).catch( err => {
+      // handle the error
+      console.log(err);
+    } );
+  }
+}
+//--------------  GET CUSTOMERS FUNCTION (end) --------------
+
+
+
+//--------------  GET PRODUCTS FUNCTION --------------
+/* Arguments:
+* res - response to AJAX POST
+* product - search by product
+*/
+function getProducts (res, product) {
+
+  let database = new Database(config);
+
+console.log('product ' + product)
+
+  if ( !product ) {
+    database.query( 'SELECT * FROM goods' )
+    .then( result => {
+      console.log('PROMISE RESULT PRODUTS!!!  ' + result);
+      res.send(result);
+      return database.close(); 
+    }, err => {
+      return database.close().then( () => { throw err; } )
+    } ).catch( err => {
+      // handle the error
+      console.log(err);
+    } );
+  } else if ( product ) {
+    console.log('product');
+    console.log(product);
+    let productSQL = '%' + product + '%';
+    let sql = "SELECT * FROM goods WHERE product LIKE ?";
+    database.query( sql , [productSQL])
     .then( result => {
       console.log(result);
       console.log('PROMISE RESULT   ' + result);

@@ -10,13 +10,48 @@ var con = mysql.createConnection({
 
 
 
-con.connect(function(err) {
-  if (err) throw err;
-  con.query("SELECT * FROM customers", function (err, result, fields) {
-    if (err) throw err;
-    console.log(result);
-  });
-});
+// con.connect(function(err) {
+//   if (err) throw err;
+//   console.log("Connected!");
+//   var sql = "CREATE TABLE goods (id INT AUTO_INCREMENT PRIMARY KEY, product VARCHAR(255), price DECIMAL(10,2), amount DECIMAL(10,0))";
+//   con.query(sql, function (err, result) {
+//     if (err) throw err;
+//     console.log("Table created");
+//   });
+// });
+
+
+
+
+// con.connect(function(err) {
+//   if (err) throw err;
+//   con.query("SELECT * FROM customers", function (err, result, fields) {
+//     if (err) throw err;
+//     console.log(result);
+//   });
+// });
+
+
+// con.connect(function(err) {
+//   if (err) throw err;
+//   con.query("SELECT * FROM goods", function (err, result, fields) {
+//     if (err) throw err;
+//     console.log(result);
+//   });
+// });
+
+
+
+
+
+// con.connect(function(err) {
+//   if (err) throw err;
+//   var sql = "DROP TABLE goods";
+//   con.query(sql, function (err, result) {
+//     if (err) throw err;
+//     console.log("Table deleted");
+//   });
+// });
 
 
 
@@ -30,14 +65,6 @@ con.connect(function(err) {
 // }); 
 
 
-// con.connect(function(err) {
-//   if (err) throw err;
-//   var sql = "DROP TABLE users";
-//   con.query(sql, function (err, result) {
-//     if (err) throw err;
-//     console.log("Table deleted");
-//   });
-// });
 
 
 setTimeout(() => {process.exit();}, 1000)

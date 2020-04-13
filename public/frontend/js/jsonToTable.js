@@ -1,4 +1,4 @@
- function CreateTableFromJSON(jsonData) {
+ function CreateTableFromJSON(jsonData, element) {
 
   // EXTRACT VALUE FOR HTML HEADER. 
   var col = [];
@@ -35,8 +35,8 @@
   }
 
   // FINALLY ADD THE NEWLY CREATED TABLE WITH JSON DATA TO A CONTAINER.
-  var divContainer = document.getElementById("showData");
-  divContainer.innerHTML = "";
-  divContainer.appendChild(table);
+  // var divContainer = document.getElementById("showData");
+  element.innerHTML = "";
+  element.appendChild(table);
 }
 
