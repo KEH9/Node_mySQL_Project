@@ -220,7 +220,13 @@ function checkProductInBase (res, product, price, amount) {
     let resultBoolean = ( result.length > 0 )
     if (resultBoolean) {
         console.log('product is already in base!')
-        res.send('Product is already in base!');
+        // console.log(result);
+        // console.log(result[0].amount);
+
+        let newAmount = +amount + +result[0].amount; 
+        updateProductAmount(product, newAmount);
+        updateProductPrice(product, price);
+        res.send('Product is already in base! Amount at our store and price are updted!');
       } else {
         addProduct(product, price, amount);
         res.send('New product added!');     
@@ -285,6 +291,57 @@ function addProduct (product, price, amount) {
 
 
 }
+
+function updateProductAmount (product, amount) {
+  
+  var con = mysql.createConnection(config);
+
+  con.connect(function(err) {
+    if (err) throw err;
+    console.log("Connected!");
+    var sql = "UPDATE goods SET amount = ? WHERE product = ?";
+    
+    var values = [amount, product];
+    console.log('-------------------SQL' + sql);
+    console.log(values);
+
+    con.query(sql, values, function (err, result) {
+      if (err) throw err;
+      console.log("1 record updated");
+      con.end();
+    });
+  });
+
+
+}
+
+function updateProductPrice (product, price) {
+  
+  var con = mysql.createConnection(config);
+
+  con.connect(function(err) {
+    if (err) throw err;
+    console.log("Connected!");
+    var sql = "UPDATE goods SET price = ? WHERE product = ?";
+    
+    var values = [price, product];
+    console.log('-------------------SQL' + sql);
+    console.log(values);
+
+    con.query(sql, values, function (err, result) {
+      if (err) throw err;
+      console.log("1 record updated");
+      con.end();
+    });
+  });
+
+
+}
+
+
+
+
+
 
 
 //--------------  GET CUSTOMERS FUNCTION --------------
