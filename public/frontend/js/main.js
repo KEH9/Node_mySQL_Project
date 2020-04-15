@@ -184,7 +184,6 @@ document.getElementById('buttonFCBA').addEventListener("click", function(e){
 //------------- FIND CUSTOMERS BY ADDRESS (end) -------------
 
 
-
 //------------- GET FULL LIST OF CUSTOMERS -------------
 const button = document.getElementById('customersRequest');
 button.addEventListener('click', function(e) {
@@ -207,6 +206,42 @@ button.addEventListener('click', function(e) {
     });
 });
 //------------- GET FULL LIST OF CUSTOMERS (end) -------------
+
+
+
+
+
+//------------- FIND PRODUCT -------------
+document.getElementById('buttonFP').addEventListener("click", function(e){
+
+  let productName = document.getElementById("textFP").value;
+
+  fetch('/product_find', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json;charset=utf-8'
+    },
+    body: JSON.stringify({ product: productName}),
+  })
+    .then(function(response) {
+      if(response.ok) {
+        console.log('Find product Click was recorded');
+        response.json().then(function(jsonData) {
+          console.log(jsonData);
+          CreateTableFromJSON(jsonData, showDataProducts);
+        });
+      } else {
+        throw new Error('Request failed.');
+      }
+    })
+    .catch(function(error) {
+      console.log(error);
+    });
+
+
+});
+
+//------------- FIND PRODUCT (end) -------------
 
 
 //------------- GET FULL LIST OF PRODUCTS -------------

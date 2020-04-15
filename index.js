@@ -145,6 +145,17 @@ app.post('/customers_find_by_address', function (req, res) {
 
 
 
+//-------------- POST GET PRODUCTS REQUEST --------------
+app.post('/product_find', function (req, res) {
+
+  console.log('--------------- FIND PRODUCT CLICKED! ----------------');
+  let product = req.body.product;
+  console.log(product);
+  getProducts(res, product);
+});
+//-------------- POST GET PRODUCTS REQUEST (end) --------------
+
+
 //-------------- POST GET ALL PRODUCTS REQUEST --------------
 app.post('/products_request', function (req, res) {
 
