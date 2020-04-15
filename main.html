@@ -17,8 +17,8 @@
     <div id="customersContainer">
       <h1>Customers managing page</h1>
       <form id="newCustomerForm">
-        Name: <input type = "text" name = "name"> <br>
-        Address: <input type = "text" name = "address">
+        Name: <input type = "text" name = "name" id="name"> <br>
+        Address: <input type = "text" name = "address" id="address">
         <input type = "submit" value = "add new customer" id="newCustomer">
       </form>
   
@@ -40,9 +40,9 @@
     <div id="goodsContainer" class="hidden">
       <h1>Goods managing page</h1>
       <form id="newProductForm">
-        Product: <input type = "text" name = "product"> <br>
-        Price $: <input type = "number" name = "price">
-        Amount: <input type = "number" name = "amount">
+        Product: <input type = "text" name = "product" id="product"> <br>
+        Price $: <input type = "number" name = "price" id="price">
+        Amount: <input type = "number" name = "amount" id="amount">
         <input type = "submit" value = "add new product" id="newProduct">
       </form>
   
@@ -84,8 +84,9 @@
 
 
 
-   <script src="public/frontend/js/jsonToTable.js"></script> 
-   <script src="public/frontend/js/main.js"></script> 
+      <script src="public/frontend/js/jsonToTable.js"></script> 
+      <script src="public/frontend/js/catchEnterButton.js"></script> 
+      <script src="public/frontend/js/main.js"></script> 
 
 
   </body>

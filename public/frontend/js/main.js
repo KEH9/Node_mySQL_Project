@@ -40,6 +40,9 @@ document.getElementById('ordersButton').addEventListener("click", function(e){
 //------------- ADD NEW CUSTOMER -------------
 document.getElementById('newCustomer').addEventListener("click", function(e){
   e.preventDefault();
+});
+
+function addNewCustomerHTMLSide () {
 
   let customerForm = document.getElementById("newCustomerForm");
   let newCustomer = {
@@ -71,7 +74,7 @@ document.getElementById('newCustomer').addEventListener("click", function(e){
     });
 
 
-});
+};
 
 //------------- ADD NEW CUSTOMER (end) -------------
 
@@ -80,6 +83,11 @@ document.getElementById('newCustomer').addEventListener("click", function(e){
 //------------- ADD NEW PRODUCT -------------
 document.getElementById('newProduct').addEventListener("click", function(e){
   e.preventDefault();
+  addNewProductHTMLSide();
+
+});
+
+function addNewProductHTMLSide () {
 
   let productForm = document.getElementById("newProductForm");
   let newProduct = {
@@ -112,7 +120,7 @@ document.getElementById('newProduct').addEventListener("click", function(e){
     });
 
 
-});
+};
 
 //------------- ADD NEW PRODUCT (end) -------------
 
@@ -120,6 +128,10 @@ document.getElementById('newProduct').addEventListener("click", function(e){
 
 //------------- FIND CUSTOMERS BY NAME -------------
 document.getElementById('buttonFCBN').addEventListener("click", function(e){
+  findCustomerByNameHTMLSide();
+});
+
+function findCustomerByNameHTMLSide () {  
 
   let customersName = document.getElementById("textFCBN").value;
 
@@ -146,13 +158,17 @@ document.getElementById('buttonFCBN').addEventListener("click", function(e){
     });
 
 
-});
+};
 
 //------------- FIND CUSTOMERS BY NAME (end) -------------
 
 
 //------------- FIND CUSTOMERS BY ADDRESS -------------
 document.getElementById('buttonFCBA').addEventListener("click", function(e){
+  findCustomerByAddressHTMLSide();
+});
+
+function findCustomerByAddressHTMLSide () {
 
   let customersAddress = document.getElementById("textFCBA").value;
 
@@ -179,7 +195,7 @@ document.getElementById('buttonFCBA').addEventListener("click", function(e){
     });
 
 
-});
+};
 
 //------------- FIND CUSTOMERS BY ADDRESS (end) -------------
 
@@ -212,7 +228,11 @@ button.addEventListener('click', function(e) {
 
 
 //------------- FIND PRODUCT -------------
-document.getElementById('buttonFP').addEventListener("click", function(e){
+document.getElementById('buttonFP').addEventListener("click", function (e) {
+  findProductHTMLSide(e);
+} );
+
+function findProductHTMLSide () {
 
   let productName = document.getElementById("textFP").value;
 
@@ -239,7 +259,7 @@ document.getElementById('buttonFP').addEventListener("click", function(e){
     });
 
 
-});
+};
 
 //------------- FIND PRODUCT (end) -------------
 
