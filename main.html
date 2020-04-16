@@ -61,23 +61,26 @@
 
     <div id="ordersContainer" class="hidden">
       <h1>Orders managing page</h1>
-      <form id="newCustomerForm">
-        Name: <input type = "text" name = "name"> <br>
-        Address: <input type = "text" name = "address">
-        <input type = "submit" value = "add new customer" id="newCustomer">
+      <form id="newOrderForm">
+        Customer ID: <input type = "text" name = "CustomerID" id="CustomerID">
+        Customer name: <input type = "text" name = "CustomerName" id="CustomerName"> <br>
+        Product ID: <input type = "text" name = "ProductID" id="ProductID">
+        Product name: <input type = "text" name = "ProductName" id="ProductName">
+        Amount: <input type = "text" name = "amount" id="amountNOF">
+        <input type = "submit" value = "add new order" id="newOrder">
       </form>
   
   
   
-      <form id="findCustomers">
-        Find customers by name: <input type="text" name="textFCBN" id="textFCBN">
-        <input type="button" value="find" id="buttonFCBN"> <br>
-        Find customers by address: <input type="text" name="textFCBA" id="textFCBA">
-        <input type="button" value="find" id="buttonFCBA">
+      <form id="findOrders">
+        Find orders by customers name: <input type="text" name="textFOBCN" id="textFOBCN">
+        <input type="button" value="find" id="buttonFOBCN"> <br>
+        Find orders by products: <input type="text" name="textFOBP" id="textFOBP">
+        <input type="button" value="find" id="buttonFOBP">
       </form>
-      <button id="customersRequest">Get full list of customers</button>
+      <button id="ordersRequest">Get full list of orders</button>
       <br>
-      <p id="showData"></p>
+      <p id="showDataOrders"></p>
   
   
       </div>
