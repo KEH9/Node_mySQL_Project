@@ -3,10 +3,10 @@ let showDataCustomers = document.getElementById('showDataCustomers');
 //------------- SHOW DATA ELEMENTS (end) -------------
 
 
-
 //------------- ADD NEW CUSTOMER -------------
 document.getElementById('newCustomer').addEventListener("click", function(e){
   e.preventDefault();
+  addNewCustomerHTMLSide();
 });
 
 function addNewCustomerHTMLSide () {
@@ -26,6 +26,7 @@ function addNewCustomerHTMLSide () {
     body: JSON.stringify(newCustomer),
   })
     .then(function(response) {
+      console.log('!!!!!!!!!!!!customer_add!!!!!!!!!!!!')
       if(response.ok) {
         console.log('ADD Click was recorded');
         response.text().then(function(text) {
@@ -44,7 +45,6 @@ function addNewCustomerHTMLSide () {
 };
 
 //------------- ADD NEW CUSTOMER (end) -------------
-
 
 
 //------------- FIND CUSTOMERS BY NAME -------------

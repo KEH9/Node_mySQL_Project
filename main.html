@@ -62,20 +62,24 @@
     <div id="ordersContainer" class="hidden">
       <h1>Orders managing page</h1>
       <form id="newOrderForm">
-        Customer ID: <input type = "text" name = "CustomerID" id="CustomerID">
+        Customer ID: <input type = "number" name = "CustomerID" id="CustomerID">
         Customer name: <input type = "text" name = "CustomerName" id="CustomerName"> <br>
-        Product ID: <input type = "text" name = "ProductID" id="ProductID">
+        Customer address: <input type = "text" name = "CustomerAddress" id="CustomerAddress"> <br>
+        Product ID: <input type = "number" name = "ProductID" id="ProductID">
         Product name: <input type = "text" name = "ProductName" id="ProductName">
-        Amount: <input type = "text" name = "amount" id="amountNOF">
-        <input type = "submit" value = "add new order" id="newOrder">
+        Amount: <input type = "number" name = "amount" id="amountNOF">
+        <br>
+        <input type = "button" value = "add new product to this order" id="newProductToOrder">
+        <br>
+        <input type = "submit" value = "add this order" id="newOrder">
       </form>
   
   
   
       <form id="findOrders">
-        Find orders by customers name: <input type="text" name="textFOBCN" id="textFOBCN">
+        Find orders by customer name: <input type="text" name="textFOBCN" id="textFOBCN">
         <input type="button" value="find" id="buttonFOBCN"> <br>
-        Find orders by products: <input type="text" name="textFOBP" id="textFOBP">
+        Find orders by product: <input type="text" name="textFOBP" id="textFOBP">
         <input type="button" value="find" id="buttonFOBP">
       </form>
       <button id="ordersRequest">Get full list of orders</button>

@@ -143,6 +143,29 @@ app.post('/customers_find_by_address', function (req, res) {
 //-------------- POST GET CUSTOMERS BY ADDRESS REQUEST (end) --------------
 
 
+//-------------- POST GET CUSTOMER BY ID REQUEST --------------
+app.post('/customer_find_by_id', function (req, res) {
+
+  console.log('--------------- GCBID CLICKED! ----------------');
+  let id = req.body.id;
+  console.log(id);
+  getCustomerByID(res, id);
+});
+//-------------- POST GET CUSTOMER BY ID REQUEST (end) --------------
+
+
+//-------------- POST GET CUSTOMER BY NAME REQUEST --------------
+app.post('/customer_find_by_name', function (req, res) {
+
+  console.log('--------------- GCBN orders form CLICKED! ----------------');
+  let name = req.body.name;
+  console.log(name);
+  getCustomerByName(res, name);
+});
+//-------------- POST GET CUSTOMER BY NAME REQUEST (end) --------------
+
+
+
 
 
 //-------------- POST GET PRODUCTS REQUEST --------------
@@ -465,6 +488,49 @@ console.log('product ' + product)
 
 
 
+//--------------  GET CUSTOMER BY ID FUNCTION --------------
+function getCustomerByID (res, id) {
 
+  let database = new Database(config);
+
+    var sql = "SELECT * FROM customers WHERE id = ?";    
+    var values = id;
+    database.query( sql, values )
+    .then( result => {
+      console.log('PROMISE RESULT CUSTOMER BY ID!!!  ' + result);
+      console.log(result)
+      res.send(result);
+      return database.close(); 
+    }, err => {
+      return database.close().then( () => { throw err; } )
+    } ).catch( err => {
+      // handle the error
+      console.log(err);
+    } );
+}
+//--------------  GET CUSTOMER BY ID FUNCTION (end) --------------
+
+
+//--------------  GET CUSTOMER BY NAME (Orders Form) --------------
+function getCustomerByName (res, name) {
+
+  let database = new Database(config);
+
+    var sql = "SELECT * FROM customers WHERE name = ?";    
+    var values = name;
+    database.query( sql, values )
+    .then( result => {
+      console.log('PROMISE RESULT CUSTOMER BY NAME Order Form!!!  ' + result);
+      console.log(result)
+      res.send(result);
+      return database.close(); 
+    }, err => {
+      return database.close().then( () => { throw err; } )
+    } ).catch( err => {
+      // handle the error
+      console.log(err);
+    } );
+}
+//--------------  GET CUSTOMER BY NAME (Orders Form) (end) --------------
 
 

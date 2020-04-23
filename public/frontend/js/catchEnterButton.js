@@ -79,3 +79,28 @@ nodeTextFP.addEventListener("keydown", function(e) {
     }
 });
 
+
+
+//--------------------------------- ORDERS ---------------------------------
+
+// orders, onEnter field = customer ID
+let nodeCustomerID = document.getElementById("CustomerID");
+nodeCustomerID.addEventListener("keydown", function(e) {
+    if (event.key === "Enter") {
+      e.preventDefault();
+      let customerID = nodeCustomerID.value;
+      getCustomerByID(customerID, fillCustomerName);
+    }
+});
+
+
+// orders, onEnter field = customer name
+let nodeCustomerName = document.getElementById("CustomerName");
+nodeCustomerName.addEventListener("keydown", function(e) {
+    if (event.key === "Enter") {
+      e.preventDefault();
+      let CustomerNameInOrders = nodeCustomerName.value;
+      getCustomerByName(CustomerNameInOrders);
+    }
+});
+
