@@ -1,6 +1,8 @@
-//------------- SHOW DATA ELEMENTS -------------
+//------------- INI -------------
 let showDataOrders = document.getElementById('showDataOrders');
-//------------- SHOW DATA ELEMENTS (end) -------------
+let productsInOrder = 1;
+
+//------------- INI (end) -------------
 
 
 //------------- GET CUSTOMER BY ID -------------
@@ -88,6 +90,77 @@ function customerGottenByName (jsonData) {
 }
 //------------- GET CUSTOMER BY NAME (end) -------------
 
+
+
+//------------- MULTIPLY PRODUCTS IN THE ORDER -------------
+document.getElementById('newProductToOrder').addEventListener("click", function(e){
+  e.preventDefault();
+  addProductToForm();
+});
+
+document.getElementById('deleteProductFromOrder').addEventListener("click", function(e){
+  e.preventDefault();
+  deleteProductFromOrder();
+});
+
+
+function addProductToForm () {
+  productsInOrder += 1;
+  let nodeToAddProduct = document.getElementById('productsForNewOrderForm');
+  
+  let allProdctsContainer = document.getElementById('allProdctsContainer');
+
+  let prodctContainer = document.createElement("div");
+  prodctContainer.id = "prodctContainer" + productsInOrder;
+
+
+  // product ID
+  var nodeTextPID = document.createTextNode("Product ID: ");
+  prodctContainer.appendChild(nodeTextPID);
+
+  var nodeInputPID = document.createElement("input");   
+  nodeInputPID.type = "number";
+  nodeInputPID.name = "ProductID" + productsInOrder;
+  nodeInputPID.id =  "ProductID" + productsInOrder;
+  prodctContainer.appendChild(nodeInputPID);
+
+
+  // product name
+  var nodeTextPN = document.createTextNode(" Product name: ");
+  prodctContainer.appendChild(nodeTextPN);
+
+  var nodeInputPN = document.createElement("input");   
+  nodeInputPN.type = "text";
+  nodeInputPN.name = "ProductName" + productsInOrder;
+  nodeInputPN.id =  "ProductName" + productsInOrder;
+  prodctContainer.appendChild(nodeInputPN);
+  
+
+  // amount
+  var nodeTextAmount = document.createTextNode(" Amount: ");
+  prodctContainer.appendChild(nodeTextAmount);
+
+  var nodeInputAmount = document.createElement("input");   
+  nodeInputPN.type = "number";
+  nodeInputPN.name = "Amount" + productsInOrder;
+  nodeInputPN.id =  "Amount" + productsInOrder;
+  prodctContainer.appendChild(nodeInputAmount);
+  
+
+  allProdctsContainer.appendChild(prodctContainer);
+}
+
+
+function deleteProductFromOrder () {
+  if (productsInOrder > 1) {
+    let nodeName = "prodctContainer" + productsInOrder;
+    document.getElementById(nodeName).remove();
+    productsInOrder -= 1;
+  }
+}
+
+
+//------------- MULTIPLY PRODUCTS IN THE ORDER (end) -------------
 
 
 

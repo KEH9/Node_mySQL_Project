@@ -13,7 +13,7 @@ var con = mysql.createConnection({
 // con.connect(function(err) {
 //   if (err) throw err;
 //   console.log("Connected!");
-//   var sql = "CREATE TABLE goods (id INT AUTO_INCREMENT PRIMARY KEY, product VARCHAR(255), price DECIMAL(10,2), amount DECIMAL(10,0))";
+//   var sql = "CREATE TABLE orders_products (id INT AUTO_INCREMENT PRIMARY KEY, order_id INT, product_id INT, amount DECIMAL(10,0), price DECIMAL(10,2), sum DECIMAL(10,2))";
 //   con.query(sql, function (err, result) {
 //     if (err) throw err;
 //     console.log("Table created");
@@ -55,14 +55,25 @@ var con = mysql.createConnection({
 
 
 
+con.connect(function(err) {
+  if (err) throw err;
+  var sql = "SELECT TABLE_NAME FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_TYPE = 'BASE TABLE' AND TABLE_SCHEMA='mydb'";
+  con.query(sql, function (err, result) {
+    if (err) throw err;
+    console.log(result);
+  });
+}); 
+
+
 // con.connect(function(err) {
 //   if (err) throw err;
-//   var sql = "SELECT TABLE_NAME FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_TYPE = 'BASE TABLE' AND TABLE_SCHEMA='mydb'";
+//   var sql = "SELECT DATA_TYPE FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_NAME = 'goods' AND COLUMN_NAME = 'id'";
 //   con.query(sql, function (err, result) {
 //     if (err) throw err;
 //     console.log(result);
 //   });
 // }); 
+
 
 
 

@@ -63,13 +63,25 @@
       <h1>Orders managing page</h1>
       <form id="newOrderForm">
         Customer ID: <input type = "number" name = "CustomerID" id="CustomerID">
-        Customer name: <input type = "text" name = "CustomerName" id="CustomerName"> <br>
-        Customer address: <input type = "text" name = "CustomerAddress" id="CustomerAddress"> <br>
-        Product ID: <input type = "number" name = "ProductID" id="ProductID">
-        Product name: <input type = "text" name = "ProductName" id="ProductName">
-        Amount: <input type = "number" name = "amount" id="amountNOF">
+        Customer name: <input type = "text" name = "CustomerName" id="CustomerName">
+        Customer address: <input type = "text" name = "CustomerAddress" id="CustomerAddress">
         <br>
+      </form>
+  
+  
+      <form id="productsForNewOrderForm">
+        Product ID: <input type = "number" name = "ProductID1" id="ProductID1">
+        Product name: <input type = "text" name = "ProductName1" id="ProductName1">
+        Amount: <input type = "number" name = "amount1" id="amountNOF1">
+        <br>
+        <div id="allProdctsContainer"></div>
+      </form>
+  
+  
+      <form id="buttonsForNewOrderForm">
         <input type = "button" value = "add new product to this order" id="newProductToOrder">
+        <br>
+        <input type = "button" value = "delete product from order" id="deleteProductFromOrder">
         <br>
         <input type = "submit" value = "add this order" id="newOrder">
       </form>
