@@ -189,6 +189,26 @@ app.post('/products_request', function (req, res) {
 //-------------- POST GET ALL PRODUCTS REQUEST (end) --------------
 
 
+//-------------- POST GET PRODUCT BY ID REQUEST --------------
+app.post('/product_find_by_id', function (req, res) {
+
+  console.log('--------------- GPBID CLICKED! ----------------');
+  let id = req.body.id;
+  console.log(id);
+  getProductByID(res, id);
+});
+//-------------- POST GET PRODUCT BY ID REQUEST (end) --------------
+
+
+//-------------- POST GET PRODUCT BY NAME REQUEST --------------
+app.post('/product_find_by_name', function (req, res) {
+
+  console.log('--------------- GPBN CLICKED! ----------------');
+  let product = req.body.product;
+  console.log(product);
+  getProductByName(res, product);
+});
+//-------------- POST GET PRODUCT BY NAME REQUEST (end) --------------
 
 
 
@@ -532,5 +552,54 @@ function getCustomerByName (res, name) {
     } );
 }
 //--------------  GET CUSTOMER BY NAME (Orders Form) (end) --------------
+
+
+//--------------  GET PRODUCT BY ID FUNCTION --------------
+function getProductByID (res, id) {
+
+  let database = new Database(config);
+
+    var sql = "SELECT * FROM goods WHERE id = ?";    
+    var values = id;
+    database.query( sql, values )
+    .then( result => {
+      console.log('PROMISE RESULT PRODUCT BY ID!!!  ' + result);
+      console.log(result)
+      res.send(result);
+      return database.close(); 
+    }, err => {
+      return database.close().then( () => { throw err; } )
+    } ).catch( err => {
+      // handle the error
+      console.log(err);
+    } );
+}
+//--------------  GET CUSTOMER BY ID FUNCTION (end) --------------
+
+
+//--------------  GET PRODUCT BY NAME FUNCTION --------------
+function getProductByName (res, product) {
+
+  let database = new Database(config);
+
+  console.log('product' + product);
+    var sql = "SELECT * FROM goods WHERE product = ?";    
+    var values = product;
+    database.query( sql, values )
+    .then( result => {
+      console.log('PROMISE RESULT PRODUCT BY NAME!!!  ' + result);
+      console.log(result)
+      res.send(result);
+      return database.close(); 
+    }, err => {
+      return database.close().then( () => { throw err; } )
+    } ).catch( err => {
+      // handle the error
+      console.log(err);
+    } );
+}
+//--------------  GET CUSTOMER BY NAME FUNCTION (end) --------------
+
+
 
 

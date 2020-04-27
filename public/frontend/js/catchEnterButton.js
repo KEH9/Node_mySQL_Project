@@ -91,6 +91,7 @@ nodeCustomerID.addEventListener("keydown", function(e) {
       let customerID = nodeCustomerID.value;
       getCustomerByID(customerID, fillCustomerName);
     }
+
 });
 
 
@@ -99,8 +100,52 @@ let nodeCustomerName = document.getElementById("CustomerName");
 nodeCustomerName.addEventListener("keydown", function(e) {
     if (event.key === "Enter") {
       e.preventDefault();
-      let CustomerNameInOrders = nodeCustomerName.value;
-      getCustomerByName(CustomerNameInOrders);
+      let customerNameInOrders = nodeCustomerName.value;
+      getCustomerByName(customerNameInOrders);
     }
 });
+
+
+// orders, onEnter field = product ID
+catchEnterOnProductID(1);
+function catchEnterOnProductID (productNumber) {
+  let nodeProductID = document.getElementById("ProductID" + productNumber);
+  nodeProductID.addEventListener("keydown", function(e) {
+      if (event.key === "Enter") {
+        e.preventDefault();
+        let productIDInOrders = nodeProductID.value;
+        getProductByID(productIDInOrders, fillProductName, productNumber);
+      }
+  });
+}
+
+// orders, onEnter field = product name
+catchEnterOnProductName(1);
+function catchEnterOnProductName (productNumber) {
+  let nodeProductName = document.getElementById("ProductName" + productNumber);
+  nodeProductName.addEventListener("keydown", function(e) {
+      if (event.key === "Enter") {
+        e.preventDefault();
+        let productNameInOrders = nodeProductName.value;
+        getProductByName(productNameInOrders, fillProductID, productNumber);
+      }
+  });
+};
+
+// orders, onEnter field = amount
+catchEnterOnAmount(1);
+function catchEnterOnAmount (productNumber) {
+  let nodeAmountOF = document.getElementById("amountOF" + productNumber);
+  nodeAmountOF.addEventListener("keydown", function(e) {
+      if (event.key === "Enter") {
+        e.preventDefault();
+        let productAmount = document.getElementById("amountOF" + productNumber).value;
+        let productPrice = document.getElementById("price" + productNumber).value;
+        let productTotal = Math.round(productPrice * productAmount * 100) / 100;
+        document.getElementById("total" + productNumber).value = productTotal;
+        let orderTotal = document.getElementById("orderTotal");
+        orderTotal.value = Math.round((+productTotal + +orderTotal.value) * 100) / 100;
+      }
+  });
+}
 
