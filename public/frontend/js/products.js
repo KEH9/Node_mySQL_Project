@@ -48,12 +48,12 @@ function addNewProductHTMLSide () {
 //------------- ADD NEW PRODUCT (end) -------------
 
 
-//------------- FIND PRODUCT -------------
+//------------- FIND PRODUCTS -------------
 document.getElementById('buttonFP').addEventListener("click", function (e) {
-  findProductHTMLSide(e);
+  findProductsHTMLSide(e);
 } );
 
-function findProductHTMLSide () {
+function findProductsHTMLSide () {
 
   let productName = document.getElementById("textFP").value;
 
@@ -82,7 +82,7 @@ function findProductHTMLSide () {
 
 };
 
-//------------- FIND PRODUCT (end) -------------
+//------------- FIND PRODUCTS (end) -------------
 
 
 //------------- GET FULL LIST OF PRODUCTS -------------

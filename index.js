@@ -77,7 +77,7 @@ app.post('/customer_add', urlencodedParser, function (req, res) {
     console.log('address length is too short!')
     res.send('Address should to be more than 3 letters!');
   } else {
-    checkCustomerInBase(res, name, address);
+    checkCustomerInBase(res, name, address, checkCustomerForAddCustomerRequestCallback);
   }
 
 });
@@ -210,6 +210,76 @@ app.post('/product_find_by_name', function (req, res) {
 });
 //-------------- POST GET PRODUCT BY NAME REQUEST (end) --------------
 
+//-------------- POST ADD ORDER --------------
+app.post('/order_add', urlencodedParser, function (req, res) {
+
+  let customer_id = req.body.customer_id;
+  let customer_name = req.body.customer_name;
+  let customer_address = req.body.customer_address;
+  let total = req.body.total;
+  let productsArray = req.body.products;
+  console.log('req.body.customer_id = ' + customer_id);
+  console.log('req.body.customer_name = ' + customer_name);
+  console.log('req.body.customer_address = ' + customer_address);
+  console.log('req.body.total = ' + total);
+  console.log('req.body.products = ' + productsArray);
+  console.log(productsArray);
+
+  // if ( name.length <= 3 ) {
+  //   console.log('name length is too short!')
+  //   res.send('Name should to be more than 3 letters!');
+  // } else if ( address.length <= 3 ) {
+  //   console.log('address length is too short!')
+  //   res.send('Address should to be more than 3 letters!');
+  // } else {
+    addOrderToDB(res, customer_id, customer_name, customer_address, total, productsArray);
+  // }
+
+});
+//-------------- POST ADD ORDER (end) --------------
+
+
+//-------------- POST GET ALL ORDERS REQUEST --------------
+app.post('/orders_request', function (req, res) {
+
+  console.log('---------------CLICKED!----------------');
+  getOrders(res);
+
+});
+//-------------- POST GET ALL ORDERS REQUEST (end) --------------
+
+
+//-------------- POST GET ORDERS BY ID --------------
+app.post('/orders_find_by_id', function (req, res) {
+
+  console.log('--------------- FOBID CLICKED! ----------------');
+  let id = req.body.id;
+  console.log(id);
+  getOrders(res, id);
+});
+//-------------- POST GET ORDERS BY ID (end) --------------
+
+//-------------- POST GET ORDERS BY CUSTOMER ID --------------
+app.post('/orders_find_by_customer_id', function (req, res) {
+
+  console.log('--------------- FOBCID CLICKED! ----------------');
+  let id = req.body.id;
+  console.log(id);
+  getOrders(res, null, id);
+});
+//-------------- POST GET ORDERS BY CUSTOMER ID (end) --------------
+
+//-------------- POST GET ORDERS BY CUSTOMER NAME --------------
+app.post('/orders_find_by_customer_name', function (req, res) {
+
+  console.log('--------------- FOBCN CLICKED! ----------------');
+  let name = req.body.name;
+  console.log(name);
+  getOrders(res, null, null, name);
+});
+//-------------- POST GET ORDERS BY CUSTOMER NAME (end) --------------
+
+
 
 
 
@@ -223,26 +293,16 @@ var server = app.listen(3000, function () {
 
 
 
-function checkCustomerInBase (res, name, address) {
+function checkCustomerInBase (res, name, address, callback, customer_id, total, productsArray) {
 
   let database = new Database(config);
 
-  console.log('--------------- checkCustomerInBase -------------------');
-  console.log('name = ' + name);
-  console.log('addres = ' + address);
   let sql = "SELECT * FROM customers WHERE name = ? AND address = ?";
   database.query( sql , [name, address])
   .then( result => {
     console.log('----------------------- CHECK RESULT ---------------------');
     console.log(result);
-    let resultBoolean = ( result.length > 0 )
-    if (resultBoolean) {
-        console.log('customer is already in base!')
-        res.send('Customer is already in base!');
-      } else {
-        addCustomer(name, address);
-        res.send('New customer added!');     
-      }
+    callback(res, name, address, result, customer_id, total, productsArray);
     return database.close(); 
   }, err => {
     return database.close().then( () => { throw err; } )
@@ -255,6 +315,16 @@ function checkCustomerInBase (res, name, address) {
   return true;
 }
 
+function checkCustomerForAddCustomerRequestCallback (res, name, address, result) {
+  let resultBoolean = ( result.length > 0 )
+  if (resultBoolean) {
+    console.log('customer is already in base!')
+    res.send('Customer is already in base!');
+  } else {
+    addCustomer(name, address);
+    res.send('New customer added!');     
+  }
+}
 
 
 
@@ -308,7 +378,6 @@ function addCustomer (name, address) {
     if (err) throw err;
     console.log("Connected!");
     var sql = "INSERT INTO customers (name, address) VALUES ?";
-    
     var values = [[name, address]];
     console.log('-------------------SQL' + sql);
 
@@ -342,9 +411,9 @@ function addProduct (product, price, amount) {
       con.end();
     });
   });
-
-
 }
+
+
 
 function updateProductAmount (product, amount) {
   
@@ -504,7 +573,7 @@ console.log('product ' + product)
     } );
   }
 }
-//--------------  GET CUSTOMERS FUNCTION (end) --------------
+//--------------  GET PRODUCTS FUNCTION (end) --------------
 
 
 
@@ -601,5 +670,172 @@ function getProductByName (res, product) {
 //--------------  GET CUSTOMER BY NAME FUNCTION (end) --------------
 
 
+
+
+//--------------  ADD NEW ORDER FUNCTION --------------
+function addOrderToDB (res, customer_id, customer_name, customer_address, total, productsArray) {
+
+  checkCustomerInBase(res, customer_name, customer_address, addOrder, customer_id, total, productsArray);
+}
+
+function addOrder (res, customer_name, customer_address, result, customer_id, total, productsArray) {
+
+  let resultBoolean = ( result.length > 0 )
+  if (resultBoolean) {    
+
+
+    let database = new Database(config);
+    database.query( "SHOW TABLE STATUS LIKE 'orders'" )
+    .then( result => {
+      console.log('PROMISE RESULT TABLE STATUS!!!  ' + result);
+      console.log(result);
+      console.log(result[0].Auto_increment);
+      let orderNumber = result[0].Auto_increment;
+      database.close();
+      return orderNumber;
+    }, err => {
+      return database.close().then( () => { throw err; } )
+    } )
+    .then( result => {
+      console.log('result = ');
+      console.log(result);
+      console.log(customer_id, customer_name, customer_address, total);
+
+      let database = new Database(config);
+      var sql = "INSERT INTO orders (customer_id, customer_name, customer_address, total) VALUES ?";
+      var values = [[customer_id, customer_name, customer_address, total]];  
+      database.query( sql, [values] )
+      return result
+    }, err => {
+      return database.close().then( () => { throw err; } )
+    } )
+    .then( result => {
+      console.log('ORDER ADDED!!!  ' + result);
+      return result
+    } )
+    .then ( result => {
+      let order_id = result;
+
+      console.log('CHECK!!!');
+      console.log(productsArray);
+
+      for (let i = 0; i < productsArray.length; i++) {
+
+        let database = new Database(config);
+
+        let product_id = productsArray[i].product_id;
+        let product_name = productsArray[i].product_name;
+        let amount = productsArray[i].amount;
+        let price = productsArray[i].price;
+        let sum = productsArray[i].sum;
+
+        var sql = "INSERT INTO orders_products (order_id, product_id, product_name, amount, price, sum) VALUES ?";    
+        var values = [[order_id, product_id, product_name, amount, price, sum]];
+        console.log('CHECK orders_products!!!!!');
+        console.log(values);
+        
+        database.query( sql, [values] )
+        .then( result => {
+          console.log('PROMISE RESULT orders_products!!!  ' + result);
+          console.log(result)
+          res.send("ok"); // CHANGE!!
+          return database.close(); 
+        }, err => {
+          return database.close().then( () => { throw err; } )
+        } )
+
+
+      }
+
+      // START HERE
+    })
+    .catch( err => {
+      // handle the error
+      console.log(err);
+    });
+  
+  } else {
+    console.log('there is no such customer in base!')
+    res.send('there is no such customer in base!');
+  }
+
+
+}
+
+//--------------  ADD NEW ORDER FUNCTION (end) --------------
+
+
+//--------------  GET ORDERS FUNCTION --------------
+/* Arguments:
+* res - response to AJAX POST
+* id - search by order ID
+* customer_id - search by customer id
+* customer_name - search by customer name
+*/
+function getOrders (res, id, customer_id, customer_name) {
+
+  let database = new Database(config);
+
+  if ( !id && !customer_id && !customer_name ) {  // get all orders
+    database.query( 'SELECT * FROM orders' )
+    .then( result => {
+      console.log('PROMISE RESULT   ' + result);
+      res.send(result);
+      return database.close(); 
+    }, err => {
+      return database.close().then( () => { throw err; } )
+    } ).catch( err => {
+      // handle the error
+      console.log(err);
+    } );
+  } else if ( id && !customer_id && !customer_name ) { // find orders by id
+    console.log('!!!!!!!!!!!!!!!!!!!!' + id);
+    let sql = "SELECT * FROM orders WHERE id = ?";
+    database.query( sql , [id])
+    .then( result => {
+      console.log(result);
+      console.log('PROMISE RESULT   ' + result);
+      res.send(result);
+      return database.close(); 
+    }, err => {
+      return database.close().then( () => { throw err; } )
+    } ).catch( err => {
+      // handle the error
+      console.log(err);
+    } );
+  } 
+  else if ( !id && customer_id && !customer_name ) { // find ordrs by customer id
+    console.log(customer_id);
+    let sql = "SELECT * FROM orders WHERE customer_id = ?";
+    database.query( sql , [customer_id])
+    .then( result => {
+      console.log(result);
+      console.log('PROMISE RESULT   ' + result);
+      res.send(result);
+      return database.close(); 
+    }, err => {
+      return database.close().then( () => { throw err; } )
+    } ).catch( err => {
+      // handle the error
+      console.log(err);
+    } );
+  } else if ( !id && !customer_id && customer_name ) { // find ordrs by customer name
+  console.log(customer_name);
+  let sql = "SELECT * FROM orders WHERE customer_name = ?";
+  database.query( sql , [customer_name])
+  .then( result => {
+    console.log(result);
+    console.log('PROMISE RESULT   ' + result);
+    res.send(result);
+    return database.close(); 
+  }, err => {
+    return database.close().then( () => { throw err; } )
+  } ).catch( err => {
+    // handle the error
+    console.log(err);
+  } );
+}
+}
+//--------------  GET ORDERS FUNCTION (end) --------------
 
 

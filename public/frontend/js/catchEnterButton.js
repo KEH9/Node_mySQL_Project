@@ -139,13 +139,19 @@ function catchEnterOnAmount (productNumber) {
   nodeAmountOF.addEventListener("keydown", function(e) {
       if (event.key === "Enter") {
         e.preventDefault();
+
         let productAmount = document.getElementById("amountOF" + productNumber).value;
         let productPrice = document.getElementById("price" + productNumber).value;
         let productTotal = Math.round(productPrice * productAmount * 100) / 100;
         document.getElementById("total" + productNumber).value = productTotal;
-        let orderTotal = document.getElementById("orderTotal");
-        orderTotal.value = Math.round((+productTotal + +orderTotal.value) * 100) / 100;
+
+        let orderSum = 0;
+        for ( let i = 1; i <= productNumber ; i++ ) {
+          orderSum = orderSum + +document.getElementById("total" + i).value;
+        };
+        document.getElementById("orderTotal").value = orderSum;
       }
   });
 }
+
 

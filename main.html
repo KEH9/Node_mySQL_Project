@@ -86,16 +86,18 @@
         <br>
         <input type = "button" value = "delete product from order" id="deleteProductFromOrder">
         <br>
-        <input type = "submit" value = "add this order" id="newOrder">
+        <input type = "submit" value = "add this order to database" id="addOrder">
       </form>
   
   
   
       <form id="findOrders">
+        Find orders by order ID: <input type="text" name="textFOBOID" id="textFOBOID">
+        <input type="button" value="find" id="buttonFOBOID"> <br>
+        Find orders by customer ID: <input type="text" name="textFOBCID" id="textFOBCID">
+        <input type="button" value="find" id="buttonFOBCID"> <br>
         Find orders by customer name: <input type="text" name="textFOBCN" id="textFOBCN">
         <input type="button" value="find" id="buttonFOBCN"> <br>
-        Find orders by product: <input type="text" name="textFOBP" id="textFOBP">
-        <input type="button" value="find" id="buttonFOBP">
       </form>
       <button id="ordersRequest">Get full list of orders</button>
       <br>
