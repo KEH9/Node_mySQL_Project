@@ -681,8 +681,7 @@ function addOrderToDB (res, customer_id, customer_name, customer_address, total,
 function addOrder (res, customer_name, customer_address, result, customer_id, total, productsArray) {
 
   let resultBoolean = ( result.length > 0 )
-  if (resultBoolean) {    
-
+  if (resultBoolean) {    //--------------  ADD NEW ORDER INTO TABLE "ORDRS" --------------
 
     let database = new Database(config);
     database.query( "SHOW TABLE STATUS LIKE 'orders'" )
@@ -713,15 +712,11 @@ function addOrder (res, customer_name, customer_address, result, customer_id, to
       console.log('ORDER ADDED!!!  ' + result);
       return result
     } )
-    .then ( result => {
+    .then ( result => { 
+//--------------  PUT ALL PRODUCTS TO orders_products --------------
       let order_id = result;
 
-      console.log('CHECK!!!');
-      console.log(productsArray);
-
-      for (let i = 0; i < productsArray.length; i++) {
-
-        let database = new Database(config);
+      for (let i = 0; i < productsArray.length; i++) { 
 
         let product_id = productsArray[i].product_id;
         let product_name = productsArray[i].product_name;
@@ -729,25 +724,9 @@ function addOrder (res, customer_name, customer_address, result, customer_id, to
         let price = productsArray[i].price;
         let sum = productsArray[i].sum;
 
-        var sql = "INSERT INTO orders_products (order_id, product_id, product_name, amount, price, sum) VALUES ?";    
-        var values = [[order_id, product_id, product_name, amount, price, sum]];
-        console.log('CHECK orders_products!!!!!');
-        console.log(values);
-        
-        database.query( sql, [values] )
-        .then( result => {
-          console.log('PROMISE RESULT orders_products!!!  ' + result);
-          console.log(result)
-          res.send("ok"); // CHANGE!!
-          return database.close(); 
-        }, err => {
-          return database.close().then( () => { throw err; } )
-        } )
-
+        addProductToOrdesProducts(res, order_id, product_id, product_name, amount, price, sum);
 
       }
-
-      // START HERE
     })
     .catch( err => {
       // handle the error
@@ -759,9 +738,28 @@ function addOrder (res, customer_name, customer_address, result, customer_id, to
     res.send('there is no such customer in base!');
   }
 
-
 }
 
+function addProductToOrdesProducts (res, order_id, product_id, product_name, amount, price, sum) {
+
+  let database = new Database(config);
+  var sql = "INSERT INTO orders_products (order_id, product_id, product_name, amount, price, sum) VALUES ?";    
+  var values = [[order_id, product_id, product_name, amount, price, sum]];
+  console.log('CHECK orders_products!!!!!');
+  console.log(values);
+  
+  database.query( sql, [values] )
+  .then( result => {
+    console.log('PROMISE RESULT orders_products!!!  ' + result);
+    console.log(result)
+    res.send("ok"); // CHANGE!!
+    return database.close(); 
+  }, err => {
+    return database.close().then( () => { throw err; } )
+  } )
+
+
+}
 //--------------  ADD NEW ORDER FUNCTION (end) --------------
 
 

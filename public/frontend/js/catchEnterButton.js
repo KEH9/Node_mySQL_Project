@@ -113,8 +113,27 @@ function catchEnterOnProductID (productNumber) {
   nodeProductID.addEventListener("keydown", function(e) {
       if (event.key === "Enter") {
         e.preventDefault();
+//        let productPositionInOrder = e.target.id.substr(e.target.id.length - 1);
+
         let productIDInOrders = nodeProductID.value;
-        getProductByID(productIDInOrders, fillProductName, productNumber);
+
+        let i = 1;
+        let node = document.getElementById("ProductID" + i)
+        let exist = false;
+
+        while (!!node) {
+          if (node.value == productIDInOrders && i !== productNumber) {
+            alert('this product is already exist in this order!')
+            exist = true;
+            nodeProductID.value = '';
+          }
+          i++;
+          node = document.getElementById("ProductID" + i)
+        }
+
+        if (!exist) {
+          getProductByID(productIDInOrders, fillProductName, productNumber);
+        }
       }
   });
 }
@@ -140,16 +159,24 @@ function catchEnterOnAmount (productNumber) {
       if (event.key === "Enter") {
         e.preventDefault();
 
+        let productName = document.getElementById("ProductName" + productNumber).value;
         let productAmount = document.getElementById("amountOF" + productNumber).value;
+        let productAtStore = document.getElementById("atStore" + productNumber).value;
         let productPrice = document.getElementById("price" + productNumber).value;
-        let productTotal = Math.round(productPrice * productAmount * 100) / 100;
-        document.getElementById("total" + productNumber).value = productTotal;
 
-        let orderSum = 0;
-        for ( let i = 1; i <= productNumber ; i++ ) {
-          orderSum = orderSum + +document.getElementById("total" + i).value;
-        };
-        document.getElementById("orderTotal").value = orderSum;
+        if (+productAtStore < +productAmount) {
+          alert("Not enough of " + productName + " at the store!" + "  store: " + productAtStore + "  amount: " + productAmount);
+        } else {
+          let productTotal = Math.round(productPrice * productAmount * 100) / 100;
+          document.getElementById("total" + productNumber).value = productTotal;
+  
+          let orderSum = 0;
+          for ( let i = 1; i <= productNumber ; i++ ) {
+            orderSum = orderSum + +document.getElementById("total" + i).value;
+          };
+          document.getElementById("orderTotal").value = orderSum;
+        }          
+
       }
   });
 }

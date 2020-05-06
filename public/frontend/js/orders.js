@@ -155,6 +155,16 @@ function addProductToForm () {
   nodeInputAmount.id =  "amountOF" + productsInOrder;
   prodctContainer.appendChild(nodeInputAmount);
   
+  // at store
+  var nodeTextAtStore = document.createTextNode(" At store: ");
+  prodctContainer.appendChild(nodeTextAtStore);
+
+  var nodeInputAtStore = document.createElement("input");   
+  nodeInputAtStore.type = "number";
+  nodeInputAtStore.name = "atStore" + productsInOrder;
+  nodeInputAtStore.id =  "atStore" + productsInOrder;
+  prodctContainer.appendChild(nodeInputAtStore);
+  
   // total
   var nodeTextTotal = document.createTextNode(" Total: ");
   prodctContainer.appendChild(nodeTextTotal);
@@ -220,6 +230,7 @@ function fillProductName(jsonData, productNumber) {
     } else {
       document.getElementById("ProductName" + productNumber).value = jsonData[0].product;
       document.getElementById("price" + productNumber).value = jsonData[0].price;
+      document.getElementById("atStore" + productNumber).value = jsonData[0].amount;
       document.getElementById("amountOF" + productNumber).focus();
     }
 
@@ -295,6 +306,26 @@ function addNewOrderHTMLSide () {
       sum: document.getElementById("total" + i).value
     }
   
+    if (!new_orders_products.product_id) {
+      alert('Field Product ID in the row ' + i + ' is empty!');
+      return
+    }
+    if (!new_orders_products.product_name) {
+      alert('Field Product name in the row ' + i + ' is empty!');
+      return
+    }
+    if (!new_orders_products.amount) {
+      alert('Field amount in the row ' + i + ' is empty!');
+      return
+    }
+    if (!new_orders_products.price) {
+      alert('Field price in the row ' + i + ' is empty!');
+      return
+    }
+    if (!new_orders_products.sum) {
+      alert('Field Total in the row ' + i + ' is empty!');
+      return
+    }
     products.push(new_orders_products);
 
   }
