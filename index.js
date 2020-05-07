@@ -280,6 +280,17 @@ app.post('/orders_find_by_customer_name', function (req, res) {
 //-------------- POST GET ORDERS BY CUSTOMER NAME (end) --------------
 
 
+//-------------- POST GET ORDER PRODUCTS REQUEST --------------
+app.post('/order_product_find', function (req, res) {
+
+  console.log('--------------- FIND ORDER PRODUCT CLICKED! ----------------');
+  let order_id = req.body.order_id;
+  console.log(order_id);
+  getOrderProducts(res, +order_id);
+});
+//-------------- POST GET ORDER PRODUCTS REQUEST (end) --------------
+
+
 
 
 
@@ -835,5 +846,35 @@ function getOrders (res, id, customer_id, customer_name) {
 }
 }
 //--------------  GET ORDERS FUNCTION (end) --------------
+
+
+//--------------  GET ORDER PRODUCTS FUNCTION --------------
+/* Arguments:
+* res - response to AJAX POST
+* product - search by product
+*/
+function getOrderProducts (res, order_id) {
+
+  let database = new Database(config);
+
+  console.log('order_id');
+  console.log(order_id);
+  let sql = "SELECT * FROM orders_products WHERE order_id = ?";
+  database.query( sql , [order_id])
+  .then( result => {
+    console.log(result);
+    console.log('PROMISE RESULT   ' + result);
+    res.send(result);
+    return database.close(); 
+  }, err => {
+    return database.close().then( () => { throw err; } )
+  } ).catch( err => {
+    // handle the error
+    console.log(err);
+  } );
+
+}
+//--------------  GET ORDER PRODUCTS FUNCTION (end) --------------
+
 
 

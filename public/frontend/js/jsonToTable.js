@@ -1,4 +1,4 @@
- function CreateTableFromJSON(jsonData, element) {
+ function CreateTableFromJSON(jsonData, element, firstCol=0) {
 
   // EXTRACT VALUE FOR HTML HEADER. 
   var col = [];
@@ -17,7 +17,7 @@
 
   var tr = table.insertRow(-1);                   // TABLE ROW.
 
-  for (var i = 0; i < col.length; i++) {
+  for (var i = firstCol; i < col.length; i++) {
       var th = document.createElement("th");      // TABLE HEADER.
       th.innerHTML = col[i];
       tr.appendChild(th);
@@ -28,14 +28,13 @@
 
       tr = table.insertRow(-1);
 
-      for (var j = 0; j < col.length; j++) {
+      for (var j = firstCol; j < col.length; j++) {
           var tabCell = tr.insertCell(-1);
           tabCell.innerHTML = jsonData[i][col[j]];
       }
   }
 
   // FINALLY ADD THE NEWLY CREATED TABLE WITH JSON DATA TO A CONTAINER.
-  // var divContainer = document.getElementById("showData");
   element.innerHTML = "";
   element.appendChild(table);
 }
