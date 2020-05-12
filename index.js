@@ -41,7 +41,6 @@ class Database {
 
 var urlencodedParser = bodyParser.urlencoded({ extended: false })
 
-//app.use(express.static('public'));
 app.use("/public", express.static('./public/'));
 app.use(bodyParser.urlencoded({
   extended: true
@@ -53,7 +52,6 @@ app.use(express.json());
 
 app.get('/', function (req, res) {
   res.sendFile('main.html', { root: path.join(__dirname) });
-  // res.sendFile( __dirname + "\\" + "main.html" );
 });
 
 
@@ -114,7 +112,7 @@ app.post('/product_add', urlencodedParser, function (req, res) {
 //-------------- POST GET ALL CUSTOMERS REQUEST --------------
 app.post('/customers_request', function (req, res) {
 
-  console.log('---------------CLICKED!----------------');
+  console.log('---------------customers_request CLICKED!----------------');
   getCustomers(res);
 
 });
@@ -182,7 +180,7 @@ app.post('/product_find', function (req, res) {
 //-------------- POST GET ALL PRODUCTS REQUEST --------------
 app.post('/products_request', function (req, res) {
 
-  console.log('---------------CLICKED!----------------');
+  console.log('---------------products_request CLICKED!----------------');
   getProducts(res);
 
 });
@@ -242,7 +240,7 @@ app.post('/order_add', urlencodedParser, function (req, res) {
 //-------------- POST GET ALL ORDERS REQUEST --------------
 app.post('/orders_request', function (req, res) {
 
-  console.log('---------------CLICKED!----------------');
+  console.log('---------------orders_request CLICKED!----------------');
   getOrders(res);
 
 });
@@ -292,9 +290,6 @@ app.post('/order_product_find', function (req, res) {
 
 
 
-
-
-
 var server = app.listen(3000, function () {
    var host = server.address().address
    var port = server.address().port
@@ -338,7 +333,6 @@ function checkCustomerForAddCustomerRequestCallback (res, name, address, result)
 }
 
 
-
 function checkProductInBase (res, product, price, amount) {
 
   let database = new Database(config);
@@ -377,8 +371,6 @@ function checkProductInBase (res, product, price, amount) {
 
   return true;
 }
-
-
 
 
 function addCustomer (name, address) {
@@ -425,7 +417,6 @@ function addProduct (product, price, amount) {
 }
 
 
-
 function updateProductAmount (product, amount) {
   
   var con = mysql.createConnection(config);
@@ -433,6 +424,8 @@ function updateProductAmount (product, amount) {
   con.connect(function(err) {
     if (err) throw err;
     console.log("Connected!");
+    console.log("Amount: ");
+    console.log(amount);
     var sql = "UPDATE goods SET amount = ? WHERE product = ?";
     
     var values = [amount, product];
@@ -443,13 +436,15 @@ function updateProductAmount (product, amount) {
       if (err) throw err;
       console.log("1 record updated");
       con.end();
-    });
+    }); 
+    
   });
 
 
 }
 
-function updateProductPrice (product, price) {
+
+function updateProductPrice (product, price) { 
   
   var con = mysql.createConnection(config);
 
@@ -471,11 +466,6 @@ function updateProductPrice (product, price) {
 
 
 }
-
-
-
-
-
 
 
 //--------------  GET CUSTOMERS FUNCTION --------------
@@ -681,8 +671,6 @@ function getProductByName (res, product) {
 //--------------  GET CUSTOMER BY NAME FUNCTION (end) --------------
 
 
-
-
 //--------------  ADD NEW ORDER FUNCTION --------------
 function addOrderToDB (res, customer_id, customer_name, customer_address, total, productsArray) {
 
@@ -734,8 +722,12 @@ function addOrder (res, customer_name, customer_address, result, customer_id, to
         let amount = productsArray[i].amount;
         let price = productsArray[i].price;
         let sum = productsArray[i].sum;
+        let at_store = productsArray[i].at_store;
+
+        let newAmount = (+at_store - +amount); 
 
         addProductToOrdesProducts(res, order_id, product_id, product_name, amount, price, sum);
+        updateProductAmount (product_name, +newAmount);
 
       }
     })
@@ -763,13 +755,11 @@ function addProductToOrdesProducts (res, order_id, product_id, product_name, amo
   .then( result => {
     console.log('PROMISE RESULT orders_products!!!  ' + result);
     console.log(result)
-    res.send("ok"); // CHANGE!!
+    res.send("New order added!");
     return database.close(); 
   }, err => {
     return database.close().then( () => { throw err; } )
   } )
-
-
 }
 //--------------  ADD NEW ORDER FUNCTION (end) --------------
 
@@ -875,6 +865,5 @@ function getOrderProducts (res, order_id) {
 
 }
 //--------------  GET ORDER PRODUCTS FUNCTION (end) --------------
-
 
 

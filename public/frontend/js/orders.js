@@ -303,9 +303,10 @@ function addNewOrderHTMLSide () {
       product_name: document.getElementById("ProductName" + i).value,
       amount: document.getElementById("amountOF" + i).value,
       price: document.getElementById("price" + i).value,
-      sum: document.getElementById("total" + i).value
+      sum: document.getElementById("total" + i).value,
+      at_store: document.getElementById("atStore" + i).value
     }
-  
+
     if (!new_orders_products.product_id) {
       alert('Field Product ID in the row ' + i + ' is empty!');
       return
@@ -326,6 +327,10 @@ function addNewOrderHTMLSide () {
       alert('Field Total in the row ' + i + ' is empty!');
       return
     }
+    if (!new_orders_products.at_store) {
+      alert('Field at store in the row ' + i + ' is empty!');
+      return
+    }
     products.push(new_orders_products);
 
   }
@@ -338,7 +343,7 @@ function addNewOrderHTMLSide () {
     customer_id: newOrderForm["CustomerID"].value,
     customer_name: newOrderForm["CustomerName"].value,
     customer_address: newOrderForm["CustomerAddress"].value,
-    total: document.getElementById("total1").value,
+    total: document.getElementById("orderTotal").value,
     products: products
   }
 
@@ -356,6 +361,9 @@ function addNewOrderHTMLSide () {
         console.log('ADD order Click was recorded');
         response.text().then(function(text) {
           console.log(text);
+          if ( text == 'New order added!') {
+            clearOrders();
+          }
           alert(text);
         });
       } else {
@@ -505,6 +513,14 @@ function findOrdersByCustomerNameHTMLSide () {
 
 //------------- FIND ORDERS BY CUSTOMER NAME (end) -------------
 
+
+//------------- CLEAN ORDERS PAGE -------------
+function clearOrders () {
+  document.getElementById("newOrderForm").reset();
+  document.getElementById("productsForNewOrderForm").reset();
+  document.getElementById("allProdctsContainer").innerHTML = '';
+}
+//------------- CLEAN ORDERS PAGE (end) -------------
 
 
 
