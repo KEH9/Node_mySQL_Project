@@ -1,4 +1,5 @@
- function CreateTableFromJSON(jsonData, element, firstCol=0) {
+
+export function createTableFromJSON (jsonData, element, firstCol=0) {
 
   // EXTRACT VALUE FOR HTML HEADER. 
   var col = [];
