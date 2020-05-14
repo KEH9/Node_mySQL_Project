@@ -1,6 +1,6 @@
-let nodeOrderTable = document.getElementById("showDataOrders");
-nodeOrderTable.addEventListener("click", function(e) {
-  e.preventDefault();
+import {createTableFromJSON} from '../sharedFunctions/createTableFromJSON.mjs'
+
+export function showOrder (e) {
   console.log(e.target.parentNode);
   let clickRow = e.target.parentNode;
   let click_order_number = clickRow.children[0].innerHTML;
@@ -43,45 +43,47 @@ nodeOrderTable.addEventListener("click", function(e) {
   nodeCloseOrder.innerHTML = "close order";
   nodeShowOrder.appendChild(nodeCloseOrder);
   
-  addEvent("closeOrder")
+  addEvent("closeOrder", nodeOrderBottomLayer)
 
-  function addEvent (id) {
-    document.getElementById(id).addEventListener("click", function() {
-      nodeOrderBottomLayer.parentNode.removeChild(nodeOrderBottomLayer);
-    });
+
+  findOrderProductsHTMLSide(click_order_number);
+}
+
+
+
+function addEvent (id, nodeOrderBottomLayer) {
+  document.getElementById(id).addEventListener("click", function() {
+    nodeOrderBottomLayer.parentNode.removeChild(nodeOrderBottomLayer);
+  });
+
+}
+
+function findOrderProductsHTMLSide (click_order_number) {
   
-  }
-
-
-  findOrderProductsHTMLSide();
-
-
-  function findOrderProductsHTMLSide () {
-  
-    fetch('/order_product_find', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json;charset=utf-8'
-      },
-      body: JSON.stringify({ order_id: click_order_number}),
+  fetch('/order_product_find', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json;charset=utf-8'
+    },
+    body: JSON.stringify({ order_id: click_order_number}),
+  })
+    .then(function(response) {
+      if(response.ok) {
+        console.log('Find product Click was recorded');
+        response.json().then(function(jsonData) {
+          console.log(jsonData);
+          createTableFromJSON(jsonData, OrderProducts, 2);
+        });
+      } else {
+        throw new Error('Request failed.');
+      }
     })
-      .then(function(response) {
-        if(response.ok) {
-          console.log('Find product Click was recorded');
-          response.json().then(function(jsonData) {
-            console.log(jsonData);
-            CreateTableFromJSON(jsonData, OrderProducts, 2);
-          });
-        } else {
-          throw new Error('Request failed.');
-        }
-      })
-      .catch(function(error) {
-        console.log(error);
-      });
-  
-  
-  };
-  
-  
-});
+    .catch(function(error) {
+      console.log(error);
+    });
+
+
+};
+
+
+

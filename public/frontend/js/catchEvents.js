@@ -5,6 +5,10 @@ import {getFullListOfProducts} from './dbGet/getFullListOfProducts.mjs';
 import {getCustomersByName} from './dbGet/getCustomersByName.mjs';
 import {getCustomersByAddress} from './dbGet/getCustomersByAddress.mjs';
 import {getFullListOfCustomers} from './dbGet/getFullListOfCustomers.mjs';
+import {getFulListOfOrders} from './dbGet/getFulListOfOrders.mjs';
+import {getOrdersById} from './dbGet/getOrdersById.mjs';
+import {getOrdersByCustomerId} from './dbGet/getOrdersByCustomerId.mjs';
+import {getOrdersByCustomerName} from './dbGet/getOrdersByCustomerName.mjs';
 
 
 
@@ -12,7 +16,10 @@ import {getFullListOfCustomers} from './dbGet/getFullListOfCustomers.mjs';
 
 import {addNewCustomerHTMLSide} from  './customers/addNewCustomerHTMLSide.mjs';
 import {addNewProductHTMLSide} from './goods/addNewProductHTMLSide.mjs';
-
+import {addProductToForm} from './orders/addProductToForm.mjs';
+import {deleteProductFromOrder} from './orders/deleteProductFromOrder.mjs';
+import {addNewOrderHTMLSide} from './orders/addNewOrderHTMLSide.mjs';
+import {showOrder} from './orders/showOrder.mjs';
 
 
 
@@ -29,8 +36,7 @@ import {
 //--------------------------------- CUSTOMERS ---------------------------------
 
 // customers add new customer, field = name
-const nodeName = document.getElementById("name");
-nodeName.addEventListener("keydown", function(e) {
+document.getElementById("name").addEventListener("keydown", function(e) {
     if (event.key === "Enter") {
       e.preventDefault();
       document.getElementById("address").focus();
@@ -38,8 +44,7 @@ nodeName.addEventListener("keydown", function(e) {
 });
 
 // customers add new customer, field = address
-const nodeAddress = document.getElementById("address");
-nodeAddress.addEventListener("keydown", function(e) {
+document.getElementById("address").addEventListener("keydown", function(e) {
     if (event.key === "Enter") {
       e.preventDefault();
       addNewCustomerHTMLSide();
@@ -48,8 +53,7 @@ nodeAddress.addEventListener("keydown", function(e) {
 
 
 // customers find customer by name
-const nodeFCBN = document.getElementById("textFCBN");
-nodeFCBN.addEventListener("keydown", function(e) {
+document.getElementById("textFCBN").addEventListener("keydown", function(e) {
     if (event.key === "Enter") {
       e.preventDefault();
       getCustomersByName();
@@ -57,8 +61,7 @@ nodeFCBN.addEventListener("keydown", function(e) {
 });
 
 // customers find customer by address
-const nodeFCBA = document.getElementById("textFCBA");
-nodeFCBA.addEventListener("keydown", function(e) {
+document.getElementById("textFCBA").addEventListener("keydown", function(e) {
     if (event.key === "Enter") {
       e.preventDefault();
       getCustomersByAddress();
@@ -66,13 +69,10 @@ nodeFCBA.addEventListener("keydown", function(e) {
 });
 
 
-
-
 //--------------------------------- GOODS ---------------------------------
 
 // goods add new product, field = product
-const nodeProduct = document.getElementById("product");
-nodeProduct.addEventListener("keydown", function(e) {
+document.getElementById("product").addEventListener("keydown", function(e) {
     if (event.key === "Enter") {
       e.preventDefault();
       document.getElementById("price").focus();
@@ -80,8 +80,7 @@ nodeProduct.addEventListener("keydown", function(e) {
 });
 
 // goods add new product, field = price
-const nodePrice = document.getElementById("price");
-nodePrice.addEventListener("keydown", function(e) {
+document.getElementById("price").addEventListener("keydown", function(e) {
     if (event.key === "Enter") {
       e.preventDefault();
       document.getElementById("amount").focus();
@@ -89,8 +88,7 @@ nodePrice.addEventListener("keydown", function(e) {
 });
 
 // goods add new product, field = amount
-const nodeAmount = document.getElementById("amount");
-nodeAmount.addEventListener("keydown", function(e) {
+document.getElementById("amount").addEventListener("keydown", function(e) {
     if (event.key === "Enter") {
       e.preventDefault();
       addNewProductHTMLSide();
@@ -99,8 +97,7 @@ nodeAmount.addEventListener("keydown", function(e) {
 
 
 // goods find products
-const nodeTextFP = document.getElementById("textFP");
-nodeTextFP.addEventListener("keydown", function(e) {
+document.getElementById("textFP").addEventListener("keydown", function(e) {
     if (event.key === "Enter") {
       e.preventDefault();
       getProductsByName(e);
@@ -112,8 +109,7 @@ nodeTextFP.addEventListener("keydown", function(e) {
 //--------------------------------- ORDERS ---------------------------------
 
 // orders, onEnter field = customer ID
-const nodeCustomerID = document.getElementById("CustomerID");
-nodeCustomerID.addEventListener("keydown", function(e) {
+document.getElementById("CustomerID").addEventListener("keydown", function(e) {
     if (event.key === "Enter") {
       e.preventDefault();
       let customerID = nodeCustomerID.value;
@@ -124,14 +120,43 @@ nodeCustomerID.addEventListener("keydown", function(e) {
 
 
 // orders, onEnter field = customer name
-const nodeCustomerName = document.getElementById("CustomerName");
-nodeCustomerName.addEventListener("keydown", function(e) {
+document.getElementById("CustomerName").addEventListener("keydown", function(e) {
     if (event.key === "Enter") {
       e.preventDefault();
       let customerNameInOrders = nodeCustomerName.value;
       getCustomerByName(customerNameInOrders);
     }
 });
+
+
+// orders, onEnter field = order ID
+document.getElementById("textFOBOID").addEventListener("keydown", function(e) {
+    if (event.key === "Enter") {
+      e.preventDefault();
+      getOrdersById();
+    }
+});
+
+// orders, onEnter field = customer ID
+document.getElementById("textFOBCID").addEventListener("keydown", function(e) {
+    if (event.key === "Enter") {
+      e.preventDefault();
+      getOrdersByCustomerId();
+    }
+});
+
+// orders, onEnter field = customer name
+document.getElementById("textFOBCN").addEventListener("keydown", function(e) {
+    if (event.key === "Enter") {
+      e.preventDefault();
+      getOrdersByCustomerName();
+    }
+});
+
+
+
+
+
 
 
 // orders, onEnter field = product ID
@@ -198,8 +223,51 @@ buttonPR.addEventListener('click', function(e) {
 
 
 //--------------------------------- ORDERS ---------------------------------
+// MULTIPLY PRODUCTS IN THE ORDER
+document.getElementById('newProductToOrder').addEventListener("click", function(e){
+  e.preventDefault();
+  addProductToForm();
+});
 
+// DELETE PRODUCT IN THE ORDER
+document.getElementById('deleteProductFromOrder').addEventListener("click", function(e){
+  e.preventDefault();
+  deleteProductFromOrder();
+});
 
+// ADD NEW ORDER
+document.getElementById('addOrder').addEventListener("click", function(e){
+  e.preventDefault();
+  addNewOrderHTMLSide();
+});
+
+// GET FULL LIST OF ORDERS 
+document.getElementById('ordersRequest').addEventListener("click", function(e){
+  e.preventDefault();
+  getFulListOfOrders();
+});
+
+// GET FULL LIST OF ORDERS 
+document.getElementById('buttonFOBOID').addEventListener("click", function(e){
+  e.preventDefault();
+  getOrdersById();
+});
+
+// FIND ORDERS BY CUSTOMER ID
+document.getElementById('buttonFOBCID').addEventListener("click", function(e){
+  getOrdersByCustomerId();
+});
+
+// FIND ORDERS BY CUSTOMER NAME
+document.getElementById('buttonFOBCN').addEventListener("click", function(e){
+  getOrdersByCustomerName();
+});
+
+// show order
+document.getElementById("showDataOrders").addEventListener("click", function(e) {
+  e.preventDefault();
+  showOrder(e)
+});
 
 
 //-------------------------- CATCH BUTTON CLICKS (end) --------------------------

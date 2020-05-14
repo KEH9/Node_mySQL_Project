@@ -223,15 +223,7 @@ app.post('/order_add', urlencodedParser, function (req, res) {
   console.log('req.body.products = ' + productsArray);
   console.log(productsArray);
 
-  // if ( name.length <= 3 ) {
-  //   console.log('name length is too short!')
-  //   res.send('Name should to be more than 3 letters!');
-  // } else if ( address.length <= 3 ) {
-  //   console.log('address length is too short!')
-  //   res.send('Address should to be more than 3 letters!');
-  // } else {
-    addOrderToDB(res, customer_id, customer_name, customer_address, total, productsArray);
-  // }
+  addOrderToDB(res, customer_id, customer_name, customer_address, total, productsArray);
 
 });
 //-------------- POST ADD ORDER (end) --------------
