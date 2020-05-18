@@ -10,19 +10,12 @@ import {getOrdersById} from './dbGet/getOrdersById.mjs';
 import {getOrdersByCustomerId} from './dbGet/getOrdersByCustomerId.mjs';
 import {getOrdersByCustomerName} from './dbGet/getOrdersByCustomerName.mjs';
 
-
-
-
-
 import {addNewCustomerHTMLSide} from  './customers/addNewCustomerHTMLSide.mjs';
 import {addNewProductHTMLSide} from './goods/addNewProductHTMLSide.mjs';
 import {addProductToForm} from './orders/addProductToForm.mjs';
 import {deleteProductFromOrder} from './orders/deleteProductFromOrder.mjs';
 import {addNewOrderHTMLSide} from './orders/addNewOrderHTMLSide.mjs';
 import {showOrder} from './orders/showOrder.mjs';
-
-
-
 
 import { 
   catchEnterOnProductID, 
@@ -112,7 +105,7 @@ document.getElementById("textFP").addEventListener("keydown", function(e) {
 document.getElementById("CustomerID").addEventListener("keydown", function(e) {
     if (event.key === "Enter") {
       e.preventDefault();
-      let customerID = nodeCustomerID.value;
+      let customerID = document.getElementById("CustomerID").value;
       getCustomerByID(customerID, fillCustomerName);
     }
 
