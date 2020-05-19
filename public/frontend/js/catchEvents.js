@@ -6,7 +6,7 @@ import {getCustomersByName} from './dbGet/getCustomersByName.mjs';
 import {getCustomersByAddress} from './dbGet/getCustomersByAddress.mjs';
 import {getFullListOfCustomers} from './dbGet/getFullListOfCustomers.mjs';
 import {getFulListOfOrders} from './dbGet/getFulListOfOrders.mjs';
-import {getOrdersById} from './dbGet/getOrdersById.mjs';
+import {getOrderById} from './dbGet/getOrderById.mjs';
 import {getOrdersByCustomerId} from './dbGet/getOrdersByCustomerId.mjs';
 import {getOrdersByCustomerName} from './dbGet/getOrdersByCustomerName.mjs';
 
@@ -126,7 +126,7 @@ document.getElementById("CustomerName").addEventListener("keydown", function(e) 
 document.getElementById("textFOBOID").addEventListener("keydown", function(e) {
     if (event.key === "Enter") {
       e.preventDefault();
-      getOrdersById();
+      getOrderById();
     }
 });
 
@@ -145,11 +145,6 @@ document.getElementById("textFOBCN").addEventListener("keydown", function(e) {
       getOrdersByCustomerName();
     }
 });
-
-
-
-
-
 
 
 // orders, onEnter field = product ID
@@ -243,7 +238,7 @@ document.getElementById('ordersRequest').addEventListener("click", function(e){
 // GET FULL LIST OF ORDERS 
 document.getElementById('buttonFOBOID').addEventListener("click", function(e){
   e.preventDefault();
-  getOrdersById();
+  getOrderById();
 });
 
 // FIND ORDERS BY CUSTOMER ID

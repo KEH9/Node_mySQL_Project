@@ -1,9 +1,11 @@
 import {createTableFromJSON} from '../sharedFunctions/createTableFromJSON.mjs';
 
+// getting many customers by part of customers address
 export function getCustomersByAddress () {
 
   const customersAddress = document.getElementById("textFCBA").value;
 
+  // sending part of customers address to server
   fetch('/customers_find_by_address', {
     method: 'POST',
     headers: {
@@ -11,7 +13,7 @@ export function getCustomersByAddress () {
     },
     body: JSON.stringify({ address: customersAddress}),
   })
-    .then(function(response) {
+    .then(function(response) { // in case of response from server inserting a table to html
       if(response.ok) {
         console.log('FCBA Click was recorded');
         response.json().then(function(jsonData) {
@@ -22,9 +24,7 @@ export function getCustomersByAddress () {
         throw new Error('Request failed.');
       }
     })
-    .catch(function(error) {
+    .catch(function(error) { // handle error
       console.log(error);
     });
-
-
 };

@@ -4,6 +4,7 @@ import {
   catchEnterOnAmount
 } from '../sharedFunctions/catchEnterOn.mjs'
 
+// adding new line for product to order form
 export function addProductToForm () {
   let productsInOrder = (document.getElementById("allProdctsContainer").childElementCount + 2);
 

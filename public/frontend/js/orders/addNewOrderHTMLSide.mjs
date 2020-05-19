@@ -1,5 +1,8 @@
+
+// adding new order to DB tables 'orders' and 'orders_products'
 export function addNewOrderHTMLSide () {
 
+// check params
   if (+document.getElementById("orderTotal").value <= 0) {
     alert("Order total should to be more than 0!");
     return
@@ -8,7 +11,7 @@ export function addNewOrderHTMLSide () {
   let produtsAmount = (document.getElementById("allProdctsContainer").childElementCount + 1);
   let products = [];
 
-  for(let i = 1; i <= produtsAmount; i++) {
+  for(let i = 1; i <= produtsAmount; i++) { // new products object for 'orders_products' table
     let new_orders_products = {
       product_id: document.getElementById("ProductID" + i).value,
       product_name: document.getElementById("ProductName" + i).value,
@@ -18,6 +21,7 @@ export function addNewOrderHTMLSide () {
       at_store: document.getElementById("atStore" + i).value
     }
 
+// check params
     if (!new_orders_products.product_id) {
       alert('Field Product ID in the row ' + i + ' is empty!');
       return
@@ -50,15 +54,16 @@ export function addNewOrderHTMLSide () {
   console.log(products);
 
   let newOrderForm = document.getElementById("newOrderForm");
-  let newOrder = {
+  let newOrder = { // new products object for 'orders' table
     customer_id: newOrderForm["CustomerID"].value,
     customer_name: newOrderForm["CustomerName"].value,
     customer_address: newOrderForm["CustomerAddress"].value,
     total: document.getElementById("orderTotal").value,
     products: products
   }
-
   console.log(newOrder);
+
+  // sending new order and products to server
   fetch('/order_add', {
     method: 'POST',
     headers: {
@@ -67,8 +72,8 @@ export function addNewOrderHTMLSide () {
     body: JSON.stringify(newOrder),
   })
     .then(function(response) {
-      console.log('!!!!!!!!!!!!newOrder_add!!!!!!!!!!!!')
-      if(response.ok) {
+      console.log('newOrder_add')
+      if(response.ok) {  // in case of response from server alerting user
         console.log('ADD order Click was recorded');
         response.text().then(function(text) {
           console.log(text);
@@ -83,7 +88,7 @@ export function addNewOrderHTMLSide () {
         throw new Error('Request failed.');
       }
     })
-    .catch(function(error) {
+    .catch(function(error) { // handle error
       console.log(error);
     });
 };

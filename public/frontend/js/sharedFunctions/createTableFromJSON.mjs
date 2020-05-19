@@ -1,4 +1,5 @@
 
+// create table from json data and insert it into html element  
 export function createTableFromJSON (jsonData, element, firstCol=0) {
 
   // EXTRACT VALUE FOR HTML HEADER. 

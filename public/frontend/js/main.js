@@ -1,6 +1,7 @@
 console.log('Client-side code running');
 
 //------------- NAVIGATION -------------
+// toggle customer / goods / orders managing pages (hide /show)
 let customersContainer = document.getElementById('customersContainer');
 let goodsContainer = document.getElementById('goodsContainer');
 let ordersContainer = document.getElementById('ordersContainer');

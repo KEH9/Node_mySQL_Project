@@ -11,47 +11,10 @@ const { addOrderToDB } = require("./dbRequests/add/addOrderToDB");
 const { getOrders } = require("./dbRequests/get/getOrders");
 const { getOrderProducts } = require("./dbRequests/get/getOrderProducts");
 
-const http = require('http');
-const fs = require('fs');
 const path = require('path');
-const mysql = require('mysql');
 const express = require('express');
 const app = express();
 const bodyParser = require('body-parser');
-
-// const config = {
-//   host: "localhost",
-//   user: "root",
-//   password: "256256ZZzz",
-//   database: "mydb"
-// };
-// exports.config = config;
-
-
-// class Database {
-//   constructor( config ) {
-//       this.connection = mysql.createConnection( config );
-//   }
-//   query( sql, args ) {
-//       return new Promise( ( resolve, reject ) => {
-//           this.connection.query( sql, args, ( err, rows ) => {
-//               if ( err )
-//                   return reject( err );
-//               resolve( rows );
-//           } );
-//       } );
-//   }
-//   close() {
-//       return new Promise( ( resolve, reject ) => {
-//           this.connection.end( err => {
-//               if ( err )
-//                   return reject( err );
-//               resolve();
-//           } );
-//       } );
-//   }
-// }
-// exports.Database = Database;
 
 
 var urlencodedParser = bodyParser.urlencoded({ extended: false })
@@ -64,7 +27,7 @@ app.use(express.json());
 
 
 
-//-------------- SEND MAIN PAGE --------------
+//-------------- SEND INDEX PAGE --------------
 app.get('/', function (req, res) {
   res.sendFile('main.html', { root: path.join(__dirname) });
 });

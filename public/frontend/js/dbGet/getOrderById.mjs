@@ -1,9 +1,11 @@
 import {createTableFromJSON} from '../sharedFunctions/createTableFromJSON.mjs';
 
-export function getOrdersById () {
+// getting one order by it's ID
+export function getOrderById () {
 
   let orderId = document.getElementById("textFOBOID").value;
 
+  // sending orders ID to server
   fetch('/orders_find_by_id', {
     method: 'POST',
     headers: {
@@ -11,7 +13,7 @@ export function getOrdersById () {
     },
     body: JSON.stringify({ id: orderId}),
   })
-    .then(function(response) {
+    .then(function(response) { // in case of response from server inserting a table to html
       if(response.ok) {
         console.log('FOBID Click was recorded');
         response.json().then(function(jsonData) {
@@ -22,7 +24,7 @@ export function getOrdersById () {
         throw new Error('Request failed.');
       }
     })
-    .catch(function(error) {
+    .catch(function(error) { // handle error
       console.log(error);
     });
 
