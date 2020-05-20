@@ -27,8 +27,7 @@ export function addNewCustomerHTMLSide () {
           console.log(text);
           alert(text);
         });
-      } else {
-        
+      } else {        
         throw new Error('Request failed.');
       }
     })

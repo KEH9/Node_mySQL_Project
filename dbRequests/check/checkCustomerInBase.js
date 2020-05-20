@@ -1,4 +1,4 @@
-const { checkCustomerForAddCustomerRequestCallback } = require("../../callbacks/checkCustomerForAddCustomerRequestCallback");
+//const { checkCustomerForAddCustomerRequestCallback } = require("../../callbacks/checkCustomerForAddCustomerRequestCallback");
 
 const { Database, config } = require("./../../Database");
 

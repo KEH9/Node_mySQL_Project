@@ -141,9 +141,6 @@ app.post('/customer_find_by_name', function (req, res) {
 //-------------- POST GET CUSTOMER BY NAME REQUEST (end) --------------
 
 
-
-
-
 //-------------- POST GET PRODUCTS REQUEST --------------
 app.post('/product_find', function (req, res) {
 
