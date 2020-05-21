@@ -1,17 +1,16 @@
 const { Database, config } = require("./../../Database");
 
-/* Arguments:
+/* getting many customers by part of it's name, part of it's address or getting full list of customers 
+* Arguments:
 * res - response to AJAX POST
 * name - search by name
 * address - search by adress
 */
 function getCustomers(res, name, address) {
-  console.log('!!!!!!!!!!!!!!!!!!!!!!!!!Database');
-  console.log(Database);
-  console.log(config);
+
   let database = new Database(config);
   console.log('Address ' + address);
-  if (!name && !address) {
+  if (!name && !address) { // getting full list of customers
     database.query('SELECT * FROM customers')
       .then(result => {
         console.log('PROMISE RESULT   ' + result);
@@ -24,7 +23,7 @@ function getCustomers(res, name, address) {
         console.log(err);
       });
   }
-  else if (name && !address) {
+  else if (name && !address) {  // getting list of customers by part of it's name
     console.log('name && !address');
     console.log(name);
     let nameSQL = '%' + name + '%';
@@ -42,7 +41,7 @@ function getCustomers(res, name, address) {
         console.log(err);
       });
   }
-  else if (!name && address) {
+  else if (!name && address) {  // getting list of customers by part of it's address
     console.log('name && !address');
     console.log(address);
     let addressSQL = '%' + address + '%';

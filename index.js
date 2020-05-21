@@ -36,8 +36,6 @@ app.get('/', function (req, res) {
 //-------------- POST ADD CUSTOMER --------------
 app.post('/customer_add', urlencodedParser, function (req, res) {
   
-  console.log('!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!');
-
   let name = req.body.name;
   let address = req.body.address;
   console.log('req.body.name = ' + name);
@@ -53,7 +51,7 @@ app.post('/customer_add', urlencodedParser, function (req, res) {
     console.log('address length is too short!')
     res.send('Address should to be more than 3 letters!');
   } else {
-    checkCustomerInBase(res, name, address, checkCustomerForAddCustomerRequestCallback);
+    checkCustomerInBase(res, checkCustomerForAddCustomerRequestCallback, name, address);
   }
 
 });
