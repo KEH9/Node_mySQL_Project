@@ -164,6 +164,14 @@ catchEnterOnAmount(1);
 
 
 //-------------------------- CATCH BUTTON CLICKS --------------------------
+//--------------------------------- WELLCOME SCREEN ---------------------------------
+// document.getElementById('wellcomeClose').addEventListener("click", function(e){
+//   e.preventDefault();
+//   let wellcomePage = document.getElementById('wellcome');
+//   wellcomePage.classList.add('div-fadeout');
+//   setTimeout(() => {wellcomePage.parentNode.removeChild(wellcomePage)}, 500);
+// });
+
 
 //--------------------------------- CUSTOMERS ---------------------------------
 // add new customer
@@ -185,6 +193,7 @@ document.getElementById('buttonFCBA').addEventListener("click", function(e){
 // get Full List Of Customers
 const button = document.getElementById('customersRequest');
 button.addEventListener('click', function(e) {
+  e.preventDefault();
   getFullListOfCustomers();
 });
 

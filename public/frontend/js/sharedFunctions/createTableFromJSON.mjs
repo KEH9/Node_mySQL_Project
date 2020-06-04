@@ -14,6 +14,7 @@ export function createTableFromJSON (jsonData, element, firstCol=0) {
 
   // CREATE DYNAMIC TABLE.
   var table = document.createElement("table");
+  table.classList.add("show-data-table");
 
   // CREATE HTML TABLE HEADER ROW USING THE EXTRACTED HEADERS ABOVE.
 

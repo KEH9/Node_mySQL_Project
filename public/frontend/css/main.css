@@ -1,3 +1,7 @@
+body {
+  overflow: scroll;
+}
+
 .main {
   margin-left: 5px;
   border: 0;
@@ -6,7 +10,7 @@
   background: linear-gradient(to bottom, #fff, #B0C17A);
   background: -webkit-linear-gradient(top, #fff, #B0C17A);
   border-radius: 0 20px 20px 0;
-  position: absolute;      
+  position: absolute;
   }
 
 .sheet {
@@ -17,14 +21,15 @@
   border-right: 2px solid #fff;
   box-shadow: 1px 0 0px 0 grey; 
   border-radius: 0 15px 15px 0;
+  cursor: pointer;
 }  
 
 .hidden {
   display: none;
 }
 
-#orderBottomLayer {
-  background-color:#ccc;
+.fullscreen {
+  background-color:#D7E0BC;
   position:fixed;
   width:100%;
   height:100%;
@@ -33,17 +38,78 @@
   z-index:1000;
 }
 
-#showOrder {
+.fullscreen-message {
   background-color: white;
   position:fixed;
-  width:80%;
-  height:80%;
-  top:10%;
-  left:10%;
   border: 1px solid black;
   z-index:2000;
 }
 
+#showDataOrders {
+  cursor: pointer;
+}
+
+#showDataOrders th {
+  cursor: auto;
+}
 
 
+#showOrder {
+  width:80%;
+  height:80%;
+  top:10%;
+  left:10%;
+}
 
+#wellcomeMessage {
+  text-align: center;
+  width:80%;
+  height:80%;
+  top:10%;
+  left:10%;
+  font-size: x-large;
+}
+
+.wellcome-message-paragraph {
+  padding: 3%;
+  display: inline-block;
+}
+
+#wellcomeClose {
+  font-size: large;
+  width: 10vw;
+  height: 5vh;
+}
+
+.div-fadeout {
+  opacity: 0;
+  transition: 0.5s;
+}
+
+.form-button {
+  margin-top: 10px;  
+}
+
+.outside-block-container {
+  display: flex;
+  justify-content: center;
+}
+
+.block-container {
+  display: inline-block;
+  vertical-align: top;
+  margin: 3%;
+}
+
+
+h1 {
+  text-align: center;
+}
+
+.show-data-table {
+  margin: 0 auto;
+}
+
+td {
+  padding-left: 7px;
+}

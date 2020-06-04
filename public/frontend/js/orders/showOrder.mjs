@@ -17,11 +17,13 @@ export function showOrder (e) {
   // background
   let nodeOrderBottomLayer = document.createElement("div");
   nodeOrderBottomLayer.id = "orderBottomLayer";
+  nodeOrderBottomLayer.classList = "fullscreen";
   document.body.appendChild(nodeOrderBottomLayer);
 
   // order field
   let nodeShowOrder = document.createElement("div");
   nodeShowOrder.id = "showOrder";
+  nodeShowOrder.classList = "fullscreen-message";
   nodeOrderBottomLayer.appendChild(nodeShowOrder);
 
   // order name
@@ -63,7 +65,8 @@ export function showOrder (e) {
 // add evernt 'close order'
 function addEvent (id, nodeOrderBottomLayer) {
   document.getElementById(id).addEventListener("click", function() {
-    nodeOrderBottomLayer.parentNode.removeChild(nodeOrderBottomLayer);
+    nodeOrderBottomLayer.classList.add('div-fadeout');
+    setTimeout(() => {nodeOrderBottomLayer.parentNode.removeChild(nodeOrderBottomLayer)}, 500);
   });
 
 }
