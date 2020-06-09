@@ -1,3 +1,5 @@
+import { addTipsEvents } from './sharedFunctions/tips/addTipsEvents.mjs';
+
 console.log('Client-side code running');
 
 //------------- NAVIGATION -------------
@@ -24,4 +26,10 @@ document.getElementById('ordersButton').addEventListener("click", function(e){
   ordersContainer.classList.remove('hidden');
 })
 //------------- NAVIGATION (end) -------------
+
+
+
+//------------- TIPS -------------
+
+addTipsEvents();
 

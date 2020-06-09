@@ -8,7 +8,8 @@ export function addNewOrderHTMLSide () {
     return
   }
 
-  let produtsAmount = (document.getElementById("allProdctsContainer").childElementCount + 1);
+  // let produtsAmount = (document.getElementById("additionalProdctsContainer").childElementCount + 1);
+  let produtsAmount = (document.getElementById("prodctsContainer").childElementCount - 1);
   let products = [];
 
   for(let i = 1; i <= produtsAmount; i++) { // new products object for 'orders_products' table
@@ -80,7 +81,7 @@ export function addNewOrderHTMLSide () {
           if ( text == 'New order added!') { // clean order form
             document.getElementById("newOrderForm").reset();
             document.getElementById("productsForNewOrderForm").reset();
-            document.getElementById("allProdctsContainer").innerHTML = '';
+//            document.getElementById("additionalProdctsContainer").innerHTML = '';
           }
           alert(text);
         });

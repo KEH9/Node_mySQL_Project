@@ -37,21 +37,51 @@
         <div class="block-container">
           <h3>Add new customer</h3>
           <form id="newCustomerForm">
-            <div>Name:</div> <input type = "text" name = "name" id="name"> <br>
-            <div>Address:</div> <input type = "text" name = "address" id="address"> <br>
-            <input type = "submit" value = "add new customer" class="form-button" id="newCustomer">
+            
+            <div>Name:</div> 
+            <input 
+            type = "text" 
+            name = "name" 
+            class="tip-generator" 
+            id="name" 
+            autocomplete="off"> 
+            <br>
+
+            <div>Address:</div> 
+            <input 
+            type = "text" 
+            name = "address" 
+            class="tip-generator" 
+            id="address" 
+            autocomplete="off"> 
+            <br>
+
+            <input 
+            type = "submit" 
+            value = "add new customer" 
+            class="form-button" 
+            id="newCustomer">
+
           </form>
         </div>
   
         <div class="block-container">
           <h3>Find customers</h3>  
+          
           <form id="findCustomers">
-            <div>Find customers by name:</div> <input type="text" name="textFCBN" id="textFCBN">
-            <input type="button" value="find" id="buttonFCBN"> <br>
-            <div>Find customers by address:</div> <input type="text" name="textFCBA" id="textFCBA">
-            <input type="button" value="find" id="buttonFCBA"> <br>
-            <button class="form-button" id="customersRequest">Get full list of customers</button>
+            <div>Find customers by name:</div> 
+            <input type="text" name="textFCBN" id="textFCBN" autocomplete="off">
+            <input type="button" value="find" id="buttonFCBN"> 
+            <br>
+            <div>Find customers by address:</div>
+            <input type="text" name="textFCBA" id="textFCBA" autocomplete="off">
+            <input type="button" value="find" id="buttonFCBA">
+            <br>
+            <button class="form-button" id="customersRequest">
+              Get full list of customers
+            </button>
           </form>
+          
           <br>
         </div>
 
@@ -67,20 +97,33 @@
       <div class="outside-block-container">
 
         <div class="block-container">
+          <h3>Add new product</h3>
           <form id="newProductForm">
-            <div>Product:</div> <input type = "text" name = "product" id="product"> <br>
-            <div>Price $:</div> <input type = "number" name = "price" id="price">
-            <div>Amount:</div> <input type = "number" name = "amount" id="amount"> <br>
+            <div>Product:</div>
+            <input type = "text" name = "product" id="product" autocomplete="off">
+            <br>
+            <div>Price $:</div>
+            <input type = "number" name = "price" id="price" autocomplete="off">
+            <div>Amount:</div>
+            <input type = "number" name = "amount" id="amount" autocomplete="off">
+            <br>
             <input type = "submit" value = "add new product" class="form-button" id="newProduct">
           </form>
         </div>
         
         <div class="block-container">
+          <h3>Find products</h3>
           <form id="findProduct">
-            <div>Find product:</div> <input type="text" name="textFP" id="textFP">
-            <input type="button" value="find" id="buttonFP"> <br>
+            <div>Find product:</div>
+            <input type="text" name="textFP" id="textFP" autocomplete="off">
+            <input type="button" value="find" id="buttonFP">
+            <br>
           </form>
-          <button class="form-button" id="productsRequest">Get full list of goods</button>
+
+          <button class="form-button" id="productsRequest">
+            Get full list of goods
+          </button>
+
         </div>
 
       </div>
@@ -91,47 +134,96 @@
 
     <div id="ordersContainer" class="hidden">
       <h1>Orders managing page</h1>
-      <form id="newOrderForm">
-        Customer ID: <input type = "number" name = "CustomerID" id="CustomerID">
-        Customer name: <input type = "text" name = "CustomerName" id="CustomerName">
-        Customer address: <input type = "text" name = "CustomerAddress" id="CustomerAddress">
+
+      <div class="outside-block-container">
+
+        <form id="newOrderForm">
+          <h3>Add new order</h3>
+          
+          Customer ID: 
+          <input type = "number" name = "CustomerID" id="CustomerID" autocomplete="off">
+
+          Customer name: 
+          <input type = "text" name = "CustomerName" id="CustomerName" autocomplete="off">
+
+          Customer address: 
+          <input type = "text" name = "CustomerAddress" id="CustomerAddress" autocomplete="off">
+          
+          <br>
+
+        </form>
+
+      </div>
+
+  
+      <div class="outside-block-container">
+        <form id="productsForNewOrderForm">
+          <table>
+            <tbody id="prodctsContainer">
+              <tr>
+                <th>Product ID</th>
+                <th>Product name</th>
+                <th>Price</th>
+                <th>Amount</th>
+                <th>At store</th>
+                <th>Total</th>
+              </tr>
+              <tr>
+                <td>
+                  <input type = "number" name = "ProductID1" id="ProductID1" autocomplete="off">
+                </td>
+                <td>
+                  <input type = "text" name = "ProductName1" id="ProductName1" autocomplete="off">
+                </td>
+                <td>
+                  <input type = "number" name = "price1" id="price1" disabled>
+                </td>
+                <td>
+                  <input type = "number" name = "amount1" id="amountOF1" autocomplete="off">
+                </td>
+                <td>
+                  <input type = "number" name = "atStore1" id="atStore1" disabled>
+                </td>
+                <td>
+                  <input type = "number" name = "total1" id="total1" disabled>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+          <br>
+          Order total: <input type = "number" name = "orderTotal" id="orderTotal" disabled>
+        </form>
+      </div>
+  
+      <div class="container-justify-space-evenly">
+        <form id="buttonsForNewOrderForm">
+          <input type = "button" value = "add new product to this order" id="newProductToOrder">
+          <input type = "button" value = "delete product from order" id="deleteProductFromOrder">
+          <input type = "submit" value = "add this order to database" id="addOrder">
+        </form>
+      </div>
+  
+  
+      <div class="outside-block-container">
+        <form id="findOrders">
+          Find orders by order ID: 
+          <input type="text" name="textFOBOID" id="textFOBOID" autocomplete="off">
+          <input type="button" value="find" id="buttonFOBOID"> 
+          <br>
+          Find orders by customer ID: 
+          <input type="text" name="textFOBCID" id="textFOBCID" autocomplete="off">
+          <input type="button" value="find" id="buttonFOBCID"> 
+          <br>
+          Find orders by customer name: 
+          <input type="text" name="textFOBCN" id="textFOBCN" autocomplete="off">
+          <input type="button" value="find" id="buttonFOBCN"> 
+          <br>
+          <button class="form-button" id="ordersRequest">
+            Get full list of orders
+          </button>
+        </form>
         <br>
-      </form>
-  
-  
-      <form id="productsForNewOrderForm">
-        Product ID: <input type = "number" name = "ProductID1" id="ProductID1">
-        Product name: <input type = "text" name = "ProductName1" id="ProductName1">
-        Price: <input type = "number" name = "price1" id="price1">
-        Amount: <input type = "number" name = "amount1" id="amountOF1">
-        At store: <input type = "number" name = "atStore1" id="atStore1">
-        Total: <input type = "number" name = "total1" id="total1">
-        <br>
-        <div id="allProdctsContainer"></div>
-        Order total: <input type = "number" name = "orderTotal" id="orderTotal">
-      </form>
-  
-  
-      <form id="buttonsForNewOrderForm">
-        <input type = "button" value = "add new product to this order" id="newProductToOrder">
-        <br>
-        <input type = "button" value = "delete product from order" id="deleteProductFromOrder">
-        <br>
-        <input type = "submit" value = "add this order to database" id="addOrder">
-      </form>
-  
-  
-  
-      <form id="findOrders">
-        Find orders by order ID: <input type="text" name="textFOBOID" id="textFOBOID">
-        <input type="button" value="find" id="buttonFOBOID"> <br>
-        Find orders by customer ID: <input type="text" name="textFOBCID" id="textFOBCID">
-        <input type="button" value="find" id="buttonFOBCID"> <br>
-        Find orders by customer name: <input type="text" name="textFOBCN" id="textFOBCN">
-        <input type="button" value="find" id="buttonFOBCN"> <br>
-      </form>
-      <button id="ordersRequest">Get full list of orders</button>
-      <br>
+      </div>
       <p id="showDataOrders"></p>
   
   

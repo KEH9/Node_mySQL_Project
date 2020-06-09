@@ -113,3 +113,52 @@ h1 {
 td {
   padding-left: 7px;
 }
+
+td input {
+  width: 100%;
+}
+
+.container-justify-space-evenly {
+  display: flex;
+  justify-content: space-evenly;
+}
+
+
+.tip {
+  display: inline-block;
+  max-width: 150px;
+  position: fixed;
+	text-align: center;
+  padding: 5px;
+	background-color: #fff;
+	border: 2px solid red;
+	-webkit-border-radius: 5px;
+	-moz-border-radius: 5px;
+	border-radius: 5px;
+	-webkit-box-shadow: 1px 1px 1px red;
+	-moz-box-shadow: 1px 1px 1px red;
+	box-shadow: 1px 1px 1px red;
+}
+ 
+.tip:before { 
+	content: ''; 
+	position: absolute; 
+	width: 0; 
+	height: 0; 
+	left: 15px; 
+	top: -16px; 
+	border: 8px solid; 
+	border-color:  transparent red red transparent; 
+}
+
+.tip:after { 
+	content: ' '; 
+	position: absolute; 
+	width: 0; 
+	height: 0; 
+	left: 17px;
+	top: -12px; 
+	border: 6px solid; 
+	border-color: transparent #fff #fff transparent; 
+}
+ 
