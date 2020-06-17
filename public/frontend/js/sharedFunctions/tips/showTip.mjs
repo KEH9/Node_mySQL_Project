@@ -12,7 +12,8 @@ export function showTip(tipGenerator, tipGeneratorID) {
   let scrollTop = window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop;
   let scrollLeft = window.pageXOffset || document.documentElement.scrollLeft || document.body.scrollLeft;
   let tipGenCoordinates = tipGenerator.getBoundingClientRect();
+  let tipCoordinates = tipDiv.getBoundingClientRect();
 
-  tipDiv.style.top = tipGenCoordinates.bottom + 12 + scrollTop + 'px';
-  tipDiv.style.left = tipGenCoordinates.left - 5 + scrollLeft + 'px';
+  tipDiv.style.top = tipGenCoordinates.top - 5 + scrollTop + 'px';
+  tipDiv.style.left = tipGenCoordinates.left - tipCoordinates.width - 20 + scrollLeft + 'px';
 }

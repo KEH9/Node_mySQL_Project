@@ -2,6 +2,12 @@ import { addTipsEvents } from './sharedFunctions/tips/addTipsEvents.mjs';
 
 console.log('Client-side code running');
 
+// focus logger
+// document.addEventListener('focusin', function() {
+//   console.log('focused: ', document.activeElement)
+// }, true);
+
+
 //------------- NAVIGATION -------------
 // toggle customer / goods / orders managing pages (hide /show)
 let customersContainer = document.getElementById('customersContainer');

@@ -29,7 +29,14 @@ export function getProductByID (id, callback, productNumber) {
 export function fillProductName(jsonData, productNumber) {
 
   if (jsonData[0] === undefined) {
+    let element = document.getElementById("ProductID" + productNumber);
+    element.value = '';
+    element.classList.add('no-blur-event');
     alert('There is no product with this ID in the base!');
+    element.focus();
+    setTimeout(function(){
+      element.classList.remove('no-blur-event');
+    }, 100);
     } else { // filling html form
       document.getElementById("ProductName" + productNumber).value = jsonData[0].product;
       document.getElementById("price" + productNumber).value = jsonData[0].price;

@@ -57,7 +57,7 @@
             <br>
 
             <input 
-            type = "submit" 
+            type = "button" 
             value = "add new customer" 
             class="form-button" 
             id="newCustomer">
@@ -69,20 +69,36 @@
           <h3>Find customers</h3>  
           
           <form id="findCustomers">
+
             <div>Find customers by name:</div> 
-            <input type="text" name="textFCBN" id="textFCBN" autocomplete="off">
+            <input
+            type="text"
+            name="textFCBN"
+            class="tip-generator"
+            id="textFCBN"
+            autocomplete="off">
+            
             <input type="button" value="find" id="buttonFCBN"> 
             <br>
+
             <div>Find customers by address:</div>
-            <input type="text" name="textFCBA" id="textFCBA" autocomplete="off">
+            <input
+            type="text"
+            name="textFCBA"
+            class="tip-generator"
+            id="textFCBA"
+            autocomplete="off">
+            
             <input type="button" value="find" id="buttonFCBA">
             <br>
+            
             <button class="form-button" id="customersRequest">
               Get full list of customers
             </button>
+
           </form>
-          
           <br>
+
         </div>
 
       </div>
@@ -99,23 +115,49 @@
         <div class="block-container">
           <h3>Add new product</h3>
           <form id="newProductForm">
+
             <div>Product:</div>
-            <input type = "text" name = "product" id="product" autocomplete="off">
+            <input
+            type = "text"
+            name = "product" 
+            class="tip-generator"
+            id="product"
+            autocomplete="off">
             <br>
+
             <div>Price $:</div>
-            <input type = "number" name = "price" id="price" autocomplete="off">
+            <input
+            type = "number"
+            name = "price"
+            class="tip-generator"
+            id="price"
+            autocomplete="off">
+            
             <div>Amount:</div>
-            <input type = "number" name = "amount" id="amount" autocomplete="off">
+            <input
+            type = "number"
+            name = "amount"
+            class = "tip-generator"
+            id = "amount"
+            autocomplete="off">
             <br>
-            <input type = "submit" value = "add new product" class="form-button" id="newProduct">
+            
+            <input type = "button" value = "add new product" class="form-button" id="newProduct">
           </form>
         </div>
         
         <div class="block-container">
           <h3>Find products</h3>
           <form id="findProduct">
+
             <div>Find product:</div>
-            <input type="text" name="textFP" id="textFP" autocomplete="off">
+            <input
+            type = "text"
+            name = "textFP"
+            class = "tip-generator"
+            id = "textFP"
+            autocomplete = "off">
+
             <input type="button" value="find" id="buttonFP">
             <br>
           </form>
@@ -141,13 +183,29 @@
           <h3>Add new order</h3>
           
           Customer ID: 
-          <input type = "number" name = "CustomerID" id="CustomerID" autocomplete="off">
+          <input
+          type = "number"
+          name = "CustomerID"
+          class = "tip-generator"
+          id = "CustomerID"
+          autocomplete = "off">
 
           Customer name: 
-          <input type = "text" name = "CustomerName" id="CustomerName" autocomplete="off">
+          <input
+          type = "text"
+          name = "CustomerName" 
+          class = "tip-generator"
+          id = "CustomerName"
+          autocomplete = "off">
 
           Customer address: 
-          <input type = "text" name = "CustomerAddress" id="CustomerAddress" autocomplete="off">
+          <input
+          type = "text"
+          name = "CustomerAddress"
+          class = "tip-generator"
+          id = "CustomerAddress"
+          autocomplete = "off"
+          disabled>
           
           <br>
 
@@ -170,22 +228,50 @@
               </tr>
               <tr>
                 <td>
-                  <input type = "number" name = "ProductID1" id="ProductID1" autocomplete="off">
+                  <input
+                  type = "number"
+                  name = "ProductID1"
+                  class = "tip-generator"
+                  id = "ProductID1"
+                  autocomplete = "off">
                 </td>
                 <td>
-                  <input type = "text" name = "ProductName1" id="ProductName1" autocomplete="off">
+                  <input
+                  type = "text"
+                  name = "ProductName1"
+                  class = "tip-generator"
+                  id = "ProductName1"
+                  autocomplete = "off">
                 </td>
                 <td>
-                  <input type = "number" name = "price1" id="price1" disabled>
+                  <input
+                  type = "number"
+                  name = "price1"
+                  id = "price1"
+                  disabled>
                 </td>
                 <td>
-                  <input type = "number" name = "amount1" id="amountOF1" autocomplete="off">
+                  <input
+                  type = "number"
+                  name = "amount1"
+                  class = "tip-generator"
+                  id = "amountOF1"
+                  autocomplete = "off">
                 </td>
                 <td>
-                  <input type = "number" name = "atStore1" id="atStore1" disabled>
+                  <input
+                  type = "number"
+                  name = "atStore1"
+                  id="atStore1"
+                  disabled>
                 </td>
                 <td>
-                  <input type = "number" name = "total1" id="total1" disabled>
+                  <input
+                  type = "number"
+                  name = "total1"
+                  class = "tip-generator"
+                  id = "total1"
+                  disabled>
                 </td>
               </tr>
             </tbody>
@@ -199,23 +285,44 @@
         <form id="buttonsForNewOrderForm">
           <input type = "button" value = "add new product to this order" id="newProductToOrder">
           <input type = "button" value = "delete product from order" id="deleteProductFromOrder">
-          <input type = "submit" value = "add this order to database" id="addOrder">
+          <input type = "button" value = "add this order to database" id="addOrder">
         </form>
       </div>
   
   
       <div class="outside-block-container">
         <form id="findOrders">
-          Find orders by order ID: 
-          <input type="text" name="textFOBOID" id="textFOBOID" autocomplete="off">
+          <label for="textFOBOID">
+            Find orders by order ID:
+          </label>
+          <input
+          type = "text"
+          name = "textFOBOID"
+          class = "tip-generator"
+          id = "textFOBOID"
+          autocomplete = "off">
           <input type="button" value="find" id="buttonFOBOID"> 
           <br>
-          Find orders by customer ID: 
-          <input type="text" name="textFOBCID" id="textFOBCID" autocomplete="off">
+          <label for="textFOBCID">
+            Find orders by customer ID: 
+          </label>
+          <input
+          type = "text"
+          name = "textFOBCID"
+          class = "tip-generator"
+          id = "textFOBCID"
+          autocomplete = "off">
           <input type="button" value="find" id="buttonFOBCID"> 
           <br>
-          Find orders by customer name: 
-          <input type="text" name="textFOBCN" id="textFOBCN" autocomplete="off">
+          <label for="textFOBCN">
+            Find orders by customer name: 
+          </label>
+          <input
+          type = "text"
+          name = "textFOBCN"
+          class = "tip-generator"
+          id = "textFOBCN"
+          autocomplete = "off">
           <input type="button" value="find" id="buttonFOBCN"> 
           <br>
           <button class="form-button" id="ordersRequest">

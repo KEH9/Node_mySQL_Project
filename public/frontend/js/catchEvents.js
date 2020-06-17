@@ -24,7 +24,7 @@ import {
 } from './sharedFunctions/catchEnterOn.mjs';
 
 
-//-------------------------- CATCH ENTER KEYDOWN --------------------------
+//-------------------------- CATCH ENTER (or blur) KEYDOWN --------------------------
 
 //--------------------------------- CUSTOMERS ---------------------------------
 
@@ -101,27 +101,58 @@ document.getElementById("textFP").addEventListener("keydown", function(e) {
 
 //--------------------------------- ORDERS ---------------------------------
 
+// add new order
 // orders, onEnter field = customer ID
 document.getElementById("CustomerID").addEventListener("keydown", function(e) {
-    if (event.key === "Enter") {
-      e.preventDefault();
-      let customerID = document.getElementById("CustomerID").value;
-      getCustomerByID(customerID, fillCustomerName);
-    }
+  if (event.key === "Enter" && (document.getElementById("CustomerID").value !== '')) {
+    e.preventDefault();
+    let customerID = document.getElementById("CustomerID").value;
+    getCustomerByID(customerID, fillCustomerName);
+  }
 
+});
+
+// orders, onBlur field = customer ID
+document.getElementById("CustomerID").addEventListener("blur", function(e) {
+  if (document.getElementById("CustomerID").value !== '') {
+    let customerID = document.getElementById("CustomerID").value;
+    getCustomerByID(customerID, fillCustomerName);
+  }
 });
 
 
 // orders, onEnter field = customer name
 document.getElementById("CustomerName").addEventListener("keydown", function(e) {
-    if (event.key === "Enter") {
-      e.preventDefault();
-      let customerNameInOrders = nodeCustomerName.value;
-      getCustomerByName(customerNameInOrders);
-    }
+  if (event.key === "Enter" && document.getElementById("CustomerName").value != '') {
+    e.preventDefault();
+    let customerNameInOrders = document.getElementById("CustomerName").value;
+    getCustomerByName(customerNameInOrders);
+  }
+});
+
+// orders, onBlur field = customer name
+document.getElementById("CustomerName").addEventListener("blur", function(e) {
+  if (document.getElementById("CustomerName").value !== '') {
+    let customerNameInOrders = document.getElementById("CustomerName").value;
+    getCustomerByName(customerNameInOrders);
+  }
 });
 
 
+
+// orders, onEnter field = product ID
+catchEnterOnProductID(1);
+
+
+// orders, onEnter field = product name
+catchEnterOnProductName(1);
+
+
+// orders, onEnter field = amount
+catchEnterOnAmount(1);
+
+
+// find orders
 // orders, onEnter field = order ID
 document.getElementById("textFOBOID").addEventListener("keydown", function(e) {
     if (event.key === "Enter") {
@@ -147,19 +178,7 @@ document.getElementById("textFOBCN").addEventListener("keydown", function(e) {
 });
 
 
-// orders, onEnter field = product ID
-catchEnterOnProductID(1);
-
-
-// orders, onEnter field = product name
-catchEnterOnProductName(1);
-
-
-// orders, onEnter field = amount
-catchEnterOnAmount(1);
-
-
-//-------------------------- CATCH ENTER KEYDOWN (end) --------------------------
+//-------------------------- CATCH ENTER (or blur) KEYDOWN (end) --------------------------
 
 
 

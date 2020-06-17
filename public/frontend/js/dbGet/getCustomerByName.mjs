@@ -32,8 +32,13 @@ export function getCustomerByName (nameFromOrderForm) {
 
 // callback function for getCustomerByName
 function noCustomerWithThisName () {
-  alert('There is no customer with this name in the base!');
-  nodeCustomerName.value = '';
+
+  let nodeCustomerName = document.getElementById("CustomerName");
+  if (nodeCustomerName.value != '') {
+    alert('There is no customer with this name in the base!');
+    nodeCustomerName.value = '';
+    nodeCustomerName.focus();
+  }
 }
 
 // callback function for getCustomerByName

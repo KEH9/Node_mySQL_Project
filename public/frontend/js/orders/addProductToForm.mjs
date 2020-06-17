@@ -39,6 +39,7 @@ export function addProductToForm () {
   nodeInputPrice.type = "number";
   nodeInputPrice.name = "price" + productsInOrder;
   nodeInputPrice.id =  "price" + productsInOrder;
+  nodeInputPrice.disabled =  "true";
   prodctContainer.appendChild(nodeInputPrice);
   let cellPrice = document.createElement("td");
   cellPrice.appendChild(nodeInputPrice);
@@ -61,6 +62,7 @@ export function addProductToForm () {
   nodeInputAtStore.type = "number";
   nodeInputAtStore.name = "atStore" + productsInOrder;
   nodeInputAtStore.id =  "atStore" + productsInOrder;
+  nodeInputAtStore.disabled =  "true";
   prodctContainer.appendChild(nodeInputAtStore);
   let cellAtStore = document.createElement("td");
   cellAtStore.appendChild(nodeInputAtStore);
@@ -72,6 +74,7 @@ export function addProductToForm () {
   nodeInputTotal.type = "number";
   nodeInputTotal.name = "total" + productsInOrder;
   nodeInputTotal.id =  "total" + productsInOrder;
+  nodeInputTotal.disabled =  "true";
   prodctContainer.appendChild(nodeInputTotal);
   let cellTotal = document.createElement("td");
   cellTotal.appendChild(nodeInputTotal);

@@ -26,10 +26,13 @@ export function getCustomerByID (id, callback) {
 
 // callback function for getCustomerByID
 export  function fillCustomerName(jsonData) {
-
+  let nodeCustomerID = document.getElementById("CustomerID");
   if (jsonData[0] === undefined) {
-    alert('There is no customer with this ID in the base!');
-    nodeCustomerID.value = '';
+    if (nodeCustomerID.value != '') {
+      alert('There is no customer with this ID in the base!');
+      nodeCustomerID.value = '';
+      nodeCustomerID.focus();
+    }
     } else { // filling form
       document.getElementById("CustomerName").value = jsonData[0].name;
       document.getElementById("CustomerAddress").value = jsonData[0].address;
