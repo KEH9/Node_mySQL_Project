@@ -25,7 +25,7 @@ export function catchEnterOnProductID (productNumber) {
     let exist = false;
 
     while (!!node) {
-      if (node.value == productIDInOrders && i !== productNumber) {
+      if (node.value == productIDInOrders && i !== productNumber && nodeProductID.value !== '') {
         alert('this product is already exist in this order!')
         exist = true;
         nodeProductID.value = '';
@@ -67,7 +67,7 @@ export function catchEnterOnProductName (productNumber) {
     let exist = false;
 
     while (!!node) {
-      if (node.value == productNameInOrders && i !== productNumber) {
+      if (node.value == productNameInOrders && i !== productNumber && nodeProductName.value !== '') {
         alert('this product is already exist in this order!')
         exist = true;
         nodeProductName.value = '';

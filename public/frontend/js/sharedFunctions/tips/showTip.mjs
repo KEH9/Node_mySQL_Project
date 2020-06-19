@@ -1,9 +1,9 @@
 import { tipsContainer } from './tipsContainer.mjs';
 
-export function showTip(tipGenerator, tipGeneratorID) {
+export function showTip(tipGenerator, tipGeneratorID, tipDirection) {
 
   let tipDiv = document.createElement('div');
-  tipDiv.classList.add('tip');
+  tipDiv.classList.add('tip-' + tipDirection);
   tipDiv.id = tipGeneratorID + "-tip";
   tipDiv.innerHTML = tipsContainer[tipGeneratorID];
 
@@ -14,6 +14,11 @@ export function showTip(tipGenerator, tipGeneratorID) {
   let tipGenCoordinates = tipGenerator.getBoundingClientRect();
   let tipCoordinates = tipDiv.getBoundingClientRect();
 
-  tipDiv.style.top = tipGenCoordinates.top - 5 + scrollTop + 'px';
-  tipDiv.style.left = tipGenCoordinates.left - tipCoordinates.width - 20 + scrollLeft + 'px';
+  if (tipDirection == 'left') {
+    tipDiv.style.top = tipGenCoordinates.top - 5 + scrollTop + 'px';
+    tipDiv.style.left = tipGenCoordinates.left - tipCoordinates.width - 20 + scrollLeft + 'px';
+  } else if (tipDirection == 'down') {
+    tipDiv.style.top = tipGenCoordinates.bottom + 20 + scrollTop + 'px';
+    tipDiv.style.left = tipGenCoordinates.left + 5 + scrollLeft + 'px';
+  }
 }
