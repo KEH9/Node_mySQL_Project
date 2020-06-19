@@ -12,7 +12,7 @@ export const tipsContainer = {
   ProductID1: "Now enter product's ID to add product to order and press 'enter' or 'tab'",
   ProductName1: "Or enter product's ID to add product to order and press 'enter' or 'tab'",
   amountOF1: "Same with amount. If you want to add more goods to order click 'add new product to this order' button",
-  textFOBOID: "To find order insert it's ID and press 'enter'",
-  textFOBCID: "To find order(s) insert customer's ID and press 'enter'",
-  textFOBCN: "To find order(s) insert customer's full name and press 'enter'"
+  textFOBOID: "To find order insert it's ID and press 'enter'. Then you can click on the order that was found to see the details.",
+  textFOBCID: "To find order(s) insert customer's ID and press 'enter'. Then you can click on the order that was found to see the details.",
+  textFOBCN: "To find order(s) insert customer's full name and press 'enter'. Then you can click on the order that was found to see the details."
 }

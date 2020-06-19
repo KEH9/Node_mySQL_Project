@@ -1,11 +1,16 @@
 import { tipsContainer } from './tipsContainer.mjs';
 
-export function showTip(tipGenerator, tipGeneratorID, tipDirection) {
+export function showTip(tipGenerator, tipGeneratorID, tipDirection, tipText) {
 
   let tipDiv = document.createElement('div');
   tipDiv.classList.add('tip-' + tipDirection);
   tipDiv.id = tipGeneratorID + "-tip";
-  tipDiv.innerHTML = tipsContainer[tipGeneratorID];
+  if (tipText) {
+    tipDiv.innerHTML = tipText;  
+  } else {
+    tipDiv.innerHTML = tipsContainer[tipGeneratorID];
+  }
+
 
   document.body.appendChild(tipDiv);
 
@@ -21,4 +26,5 @@ export function showTip(tipGenerator, tipGeneratorID, tipDirection) {
     tipDiv.style.top = tipGenCoordinates.bottom + 20 + scrollTop + 'px';
     tipDiv.style.left = tipGenCoordinates.left + 5 + scrollLeft + 'px';
   }
+
 }

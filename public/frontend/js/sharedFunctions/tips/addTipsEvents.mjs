@@ -3,12 +3,12 @@ import { removeTip } from './removeTip.mjs';
 
 export function addTipsEvents() {
   let tipsGeneratorsLeft = document.getElementsByClassName("tip-generator-left");
-  addTipsByType(tipsGeneratorsLeft, 'left');
+  addTipsToFocus(tipsGeneratorsLeft, 'left');
   let tipsGeneratorsDown = document.getElementsByClassName("tip-generator-down");
-  addTipsByType(tipsGeneratorsDown, 'down');  
+  addTipsToFocus(tipsGeneratorsDown, 'down');  
 }
 
-function addTipsByType (tipsGenerators, tipType) {
+function addTipsToFocus (tipsGenerators, tipType) {
   for (let i = 0; i < tipsGenerators.length; i++) {
     let tipGeneratorID = tipsGenerators[i].id;
     tipsGenerators[i].addEventListener('focus', (e) => {
