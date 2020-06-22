@@ -12,9 +12,7 @@ export function getCustomerByName (nameFromOrderForm) {
   })
     .then(function(response) { // in case of response from server calling functions
       if(response.ok) {
-        console.log('FCBN in oders form was recorded');
         response.json().then(function(jsonData) {
-          console.log(jsonData);
           if (jsonData[0] === undefined) {
             noCustomerWithThisName(); // in case if no customer was find
           } else {

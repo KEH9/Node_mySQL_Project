@@ -1,7 +1,7 @@
 .tip-left, .tip-down {
   display: inline-block;
   max-width: 150px;
-  position: fixed;
+  position: absolute;
 	text-align: center;
   padding: 5px;
 	background-color: #fff;

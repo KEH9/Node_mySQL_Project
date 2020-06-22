@@ -1,6 +1,7 @@
 import { showTip } from './showTip.mjs';
 import { removeTip } from './removeTip.mjs';
 
+// adding tip generators events depend on a tip direction
 export function addTipsEvents() {
   let tipsGeneratorsLeft = document.getElementsByClassName("tip-generator-left");
   addTipsToFocus(tipsGeneratorsLeft, 'left');
@@ -8,6 +9,7 @@ export function addTipsEvents() {
   addTipsToFocus(tipsGeneratorsDown, 'down');  
 }
 
+// tips appears on element focus and removes on blur 
 function addTipsToFocus (tipsGenerators, tipType) {
   for (let i = 0; i < tipsGenerators.length; i++) {
     let tipGeneratorID = tipsGenerators[i].id;

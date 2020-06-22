@@ -1,3 +1,4 @@
+// contains tips related to element ID
 export const tipsContainer = {
   name: "To add a new customer to data base enter customer's name and press 'enter' or 'tab'",
   address: "Now enter address of the customer and press 'enter'",

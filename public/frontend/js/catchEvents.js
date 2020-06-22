@@ -184,13 +184,12 @@ document.getElementById("textFOBCN").addEventListener("keydown", function(e) {
 
 //-------------------------- CATCH BUTTON CLICKS --------------------------
 //--------------------------------- WELLCOME SCREEN ---------------------------------
-// document.getElementById('wellcomeClose').addEventListener("click", function(e){
-//   e.preventDefault();
-//   let wellcomePage = document.getElementById('wellcome');
-//   wellcomePage.classList.add('div-fadeout');
-//   setTimeout(() => {wellcomePage.parentNode.removeChild(wellcomePage)}, 500);
-// });
-
+document.getElementById('wellcomeClose').addEventListener("click", function(e){
+  e.preventDefault();
+  let wellcomePage = document.getElementById('wellcome');
+  wellcomePage.classList.add('div-fadeout');
+  setTimeout(() => {wellcomePage.parentNode.removeChild(wellcomePage)}, 500);
+});
 
 //--------------------------------- CUSTOMERS ---------------------------------
 // add new customer

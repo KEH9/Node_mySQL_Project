@@ -1,7 +1,9 @@
 import { tipsContainer } from './tipsContainer.mjs';
 
+// funtion to add and position tips 
 export function showTip(tipGenerator, tipGeneratorID, tipDirection, tipText) {
 
+  // creating tip's div & add text and attributes
   let tipDiv = document.createElement('div');
   tipDiv.classList.add('tip-' + tipDirection);
   tipDiv.id = tipGeneratorID + "-tip";
@@ -10,10 +12,9 @@ export function showTip(tipGenerator, tipGeneratorID, tipDirection, tipText) {
   } else {
     tipDiv.innerHTML = tipsContainer[tipGeneratorID];
   }
-
-
   document.body.appendChild(tipDiv);
 
+  // calculating tip position
   let scrollTop = window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop;
   let scrollLeft = window.pageXOffset || document.documentElement.scrollLeft || document.body.scrollLeft;
   let tipGenCoordinates = tipGenerator.getBoundingClientRect();

@@ -11,7 +11,6 @@ export function getCustomerByID (id, callback) {
   })
     .then(function(response) { // in case of response from server calling callback and sending response
       if(response.ok) {
-        console.log('FCBID was recorded');
         response.json().then(function(jsonData) { 
           callback(jsonData); 
         });

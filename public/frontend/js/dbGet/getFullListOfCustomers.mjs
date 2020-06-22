@@ -7,9 +7,7 @@ export function getFullListOfCustomers () {
   fetch('/customers_request', {method: 'POST'})
     .then(function(response) {
       if(response.ok) { // in case of response from server inserting a table to html
-        console.log('Click was recorded');
         response.json().then(function(jsonData) {
-          console.log(jsonData);
           createTableFromJSON(jsonData, showDataCustomers);
         });
       } else {

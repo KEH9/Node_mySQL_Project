@@ -12,7 +12,6 @@ export function getProductByName (product, callback, productNumber) {
   })
     .then(function(response) { // in case of response from server calling callback function
       if(response.ok) {
-        console.log('FPBN was recorded');
         response.json().then(function(jsonData) {
           callback(jsonData, productNumber);
         });

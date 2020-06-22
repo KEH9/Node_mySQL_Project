@@ -2,6 +2,11 @@ body {
   overflow: scroll;
 }
 
+h1 {
+  text-align: center;
+}
+
+/* ------------ nav panel ------------ */
 .main {
   margin-left: 5px;
   border: 0;
@@ -24,10 +29,10 @@ body {
   cursor: pointer;
 }  
 
-.hidden {
-  display: none;
-}
+/* ------------ nav panel (end) ------------ */
 
+
+/* ------------ full screen messages ------------ */
 .fullscreen {
   background-color:#D7E0BC;
   position:fixed;
@@ -44,7 +49,10 @@ body {
   border: 1px solid black;
   z-index:2000;
 }
+/* ------------ full screen messages (end) ------------ */
 
+
+/* ------------ tables displaying request results ------------ */
 #showDataOrders {
   cursor: pointer;
 }
@@ -53,7 +61,6 @@ body {
   cursor: auto;
 }
 
-
 #showOrder {
   width:80%;
   height:80%;
@@ -61,6 +68,21 @@ body {
   left:10%;
 }
 
+.show-data-table {
+  margin: 0 auto;
+}
+
+td {
+  padding-left: 7px;
+}
+
+td input {
+  width: 100%;
+}
+/* ------------ tables displaying request results (end) ------------ */
+
+
+/* ------------ wellcome message ------------ */
 #wellcomeMessage {
   text-align: center;
   width:80%;
@@ -80,16 +102,10 @@ body {
   width: 10vw;
   height: 5vh;
 }
+/* ------------ wellcome message (end) ------------ */
 
-.div-fadeout {
-  opacity: 0;
-  transition: 0.5s;
-}
 
-.form-button {
-  margin-top: 10px;  
-}
-
+/* ------------ containers ------------ */
 .outside-block-container {
   display: flex;
   justify-content: center;
@@ -101,26 +117,35 @@ body {
   margin: 3%;
 }
 
-
-h1 {
-  text-align: center;
-}
-
-.show-data-table {
-  margin: 0 auto;
-}
-
-td {
-  padding-left: 7px;
-}
-
-td input {
-  width: 100%;
-}
-
 .container-justify-space-evenly {
   display: flex;
   justify-content: space-evenly;
 }
+/* ------------ containers (end) ------------ */
 
+
+/* ------------ misc ------------ */
+.form-button {
+  margin-top: 10px;  
+}
+
+
+#closeOrder {
+  display: block;
+
+  margin: 5vh auto;
+  font-size: large;
+  width: 20vw;
+  height: 5vh;
+
+}
+
+.div-fadeout {
+  opacity: 0;
+  transition: 0.5s;
+}
+
+.hidden {
+  display: none;
+}
 
